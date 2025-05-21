@@ -1,0 +1,94 @@
+[
+  {
+    "id": 1,
+    "question": {
+      "text": "What is the capital of Canada?"
+    },
+    "answer": {
+      "text": "Ottawa"
+    }
+  },
+  {
+    "id": 2,
+    "question": {
+      "text": "Which animal is known as the 'King of the Jungle'?",
+      "imageUrl": "https://placehold.co/300x200/FFD700/000000?text=Lion+Hint"
+    },
+    "answer": {
+      "text": "Lion"
+    }
+  },
+  {
+    "id": 3,
+    "question": {
+      "text": "Listen to this sound. What bird makes it?",
+      "audioUrl": "PLACEHOLDER_BIRD_SOUND.mp3"
+    },
+    "answer": {
+      "text": "A placeholder bird!"
+    }
+  },
+  {
+    "id": 4,
+    "question": {
+      "text": "How many colors are in a rainbow?"
+    },
+    "answer": {
+      "text": "Seven"
+    }
+  },
+  {
+    "id": 5,
+    "question": {
+      "text": "What do you call a baby dog?"
+    },
+    "answer": {
+      "text": "A puppy"
+    }
+  },
+  {
+    "id": 6,
+    "question": {
+      "text": "Which planet is closest to the Sun?"
+    },
+    "answer": {
+      "text": "Mercury"
+    }
+  },
+  {
+    "id": 7,
+    "question": {
+      "text": "What is the main ingredient in guacamole?"
+    },
+    "answer": {
+      "text": "Avocado"
+    }
+  },
+  {
+    "id": 8,
+    "question": {
+      "text": "How many sides does a triangle have?"
+    },
+    "answer": {
+      "text": "Three"
+    }
+  },
+  {
+    "id": 9,
+    "question": {
+      "text": "What is the name of Mickey Mouse's dog?"
+    },
+    "answer": {
+      "text": "Pluto"
+    }
+  },
+  {
+    "id": 10,
+    "question": {
+      "text": "What type of fish is Nemo?"
+    },
+    "answer": {
+      "text": "A clownfish"
+    }
+  }
+]

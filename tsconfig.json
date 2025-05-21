@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist", /* Output directory for compiled JavaScript */
+    "rootDir": "./src",  /* Source directory for TypeScript files */
+    "moduleResolution": "bundler" /* Modern module resolution strategy */
+    /* Add "sourceMap": true, if you want source maps for easier debugging */
+  },
+  "include": ["src/**/*.ts"] /* Specifies which files TypeScript should compile */
+}

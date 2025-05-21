@@ -1,0 +1,110 @@
+/* style.css */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Ensure board container allows absolute positioning of spots and token */
+#board-container {
+    position: relative;
+}
+
+#board-circle {
+    position: relative; /* For child absolute positioning */
+}
+
+.board-spot {
+    position: absolute;
+    width: 40px; /* Default size, can be adjusted */
+    height: 40px;
+    border-radius: 50%;
+    background-color: lightblue; /* Default color for unvisited spots */
+    border: 3px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Visited spot style */
+.board-spot.visited {
+    background-color: #a0aec0; /* Grey */
+    color: #4a5568;
+}
+
+/* Player token initial position will be set by JS */
+#player-token {
+    /* transform: translate(-50%, -50%); set by JS */
+    /* Transition for hopping effect will be managed by JS if complex, or simple CSS transition */
+    z-index: 10;
+}
+
+
+/* Trivia Modal Animation */
+#trivia-modal.hidden {
+    display: none;
+}
+#trivia-modal { /* Base styles for when it's not hidden */
+    animation: fadeInModal 0.7s ease-out forwards; /* MODIFIED: Slower animation (was 0.3s) */
+}
+@keyframes fadeInModal {
+    from { opacity: 0; transform: scale(0.95) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Dice Animation Overlay */
+#dice-animation-overlay.hidden {
+    display: none;
+}
+#dice-animation-overlay {
+    animation: fadeInOverlay 0.2s ease-out forwards;
+}
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#dice-visual {
+    animation: pulseDice 1s infinite ease-in-out; /* Simple pulse while thinking */
+}
+
+@keyframes pulseDice {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Responsive adjustments for spots if needed */
+@media (min-width: 640px) { /* sm breakpoint */
+    .board-spot {
+        width: 50px;
+        height: 50px;
+        font-size: 16px;
+    }
+}
+@media (min-width: 768px) { /* md breakpoint */
+    .board-spot {
+        width: 60px;
+        height: 60px;
+        font-size: 18px;
+    }
+}
+
+/* Styling for embedded media in trivia */
+#trivia-question-area img, #trivia-answer-area img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+#trivia-question-area video, #trivia-answer-area video,
+#trivia-question-area audio, #trivia-answer-area audio {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
