@@ -2,10 +2,12 @@
   {
     "id": 1,
     "question": {
-      "text": "What is the name of the yellow, rectangular character who lives in a pineapple under the sea?"
+      "text": "What is the name of the yellow, rectangular character who lives in a pineapple under the sea?",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     },
     "answer": {
-      "text": "SpongeBob SquarePants"
+      "text": "SpongeBob SquarePants",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     }
   },
   {
@@ -15,7 +17,8 @@
       "imageUrl": "https://placehold.co/400x300/FFDDCC/000000?text=Mystery+Fruit"
     },
     "answer": {
-      "text": "It's a placeholder image, but let's say it's an Apple!"
+      "text": "It's a placeholder image, but let's say it's an Apple!",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     }
   },
   {
@@ -25,17 +28,19 @@
       "audioUrl": "PLACEHOLDER_ANIMAL_SOUND.mp3"
     },
     "answer": {
-      "text": "A Cow (Moo!)"
+      "text": "A Cow (Moo!)",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     }
   },
   {
     "id": 4,
     "question": {
       "text": "Watch this short video. What color is the car?",
-      "videoUrl": "PLACEHOLDER_CAR_VIDEO.mp4"
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     },
     "answer": {
-      "text": "Red"
+      "text": "Red",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     }
   },
   {
@@ -44,7 +49,8 @@
       "text": "What is the opposite of 'happy'?"
     },
     "answer": {
-      "text": "Sad"
+      "text": "Sad",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     }
   },
   {
@@ -54,7 +60,8 @@
       "imageUrl": "https://placehold.co/400x300/CCEEFF/000000?text=Famous+Landmark"
     },
     "answer": {
-      "text": "The Eiffel Tower (assuming the placeholder showed it!)"
+      "text": "The Eiffel Tower (assuming the placeholder showed it!)",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     }
   },
   {
@@ -63,7 +70,8 @@
       "text": "How many days are there in a week?"
     },
     "answer": {
-      "text": "Seven"
+      "text": "Seven",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     }
   },
   {
@@ -79,7 +87,8 @@
   {
     "id": 9,
     "question": {
-      "text": "What sound is typically associated with a clock?"
+      "text": "What sound is typically associated with a clock?",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     },
     "answer": {
       "audioUrl": "PLACEHOLDER_TICKTOCK_SOUND.mp3"
@@ -88,19 +97,22 @@
   {
     "id": 10,
     "question": {
-      "text": "What popular children's song features a bus and its parts?"
+      "text": "What popular children's song features a bus and its parts?",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     },
     "answer": {
-      "videoUrl": "PLACEHOLDER_WHEELS_ON_BUS.mp4"
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     }
   },
   {
     "id": 11,
     "question": {
-      "text": "What do bees make that is sweet and sticky?"
+      "text": "What do bees make that is sweet and sticky?",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     },
     "answer": {
-      "text": "Honey"
+      "text": "Honey",
+      "videoUrl": "https://drop.skyraker.ca/s/ixleou8z.mp4"
     }
   },
   {
