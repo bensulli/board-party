@@ -25,15 +25,14 @@ type Player = string; // Player type is now just string
 
 // --- Constants & Dynamically Set Variables ---
 let numBoardSpots: number = 0; 
-// REMOVED: const PLAYERS: [Player, Player] = ["Maya", "Eli"];
 let playersList: Player[] = ["Player 1", "Player 2"]; // Default fallback players
 const INTRO_VIDEO_URL = "intro.mp4"; 
 const CONGRATS_VIDEO_URL = "intro.mp4"; 
 const QUESTIONS_FILE_PATH = 'questions.json'; 
-const CONFIG_FILE_PATH = 'config.json'; // Path to config file
+const CONFIG_FILE_PATH = 'config.json'; 
 
 // --- Game State Variables ---
-let currentPlayer: Player; // Will be set after loading config
+let currentPlayer: Player; 
 let tokenPosition: number = 0; 
 let visitedSpots: boolean[]; 
 let questions: TriviaQuestionFormat[] = []; 
@@ -73,7 +72,6 @@ async function loadConfig(): Promise<boolean> {
         const response = await fetch(CONFIG_FILE_PATH);
         if (!response.ok) {
             console.error(`Error fetching config: ${response.status} ${response.statusText}. Using default players.`);
-            // playersList remains as default
             return false;
         }
         const configData = await response.json() as ConfigFormat;
@@ -83,12 +81,10 @@ async function loadConfig(): Promise<boolean> {
             return true;
         } else {
             console.error("Invalid config.json format or insufficient players. Using default players.");
-            // playersList remains as default
             return false;
         }
     } catch (error) {
         console.error("Failed to load or parse config.json:", error, ". Using default players.");
-        // playersList remains as default
         return false;
     }
 }
@@ -215,7 +211,7 @@ async function animateTokenMove(steps: number) {
         await new Promise(resolve => setTimeout(resolve, 150)); 
     }
     playerToken.style.transition = 'all 0.5s ease-in-out'; 
-    checkCurrentSpot();
+    await checkCurrentSpot(); 
 }
 
 function showScreen(screenName: 'start' | 'video' | 'game' | 'trivia' | 'diceAnimation') {
@@ -281,14 +277,10 @@ function initializeGameBoard() {
     videoPlayerContainer.onclick = null; 
     showScreen('game');
 
-    // Randomly select starting player
     currentPlayer = playersList[Math.floor(Math.random() * playersList.length)];
-    // Ensure there are at least two players for the switching logic to make sense,
-    // though the game is designed for two.
     if (playersList.length < 2) {
         console.warn("Less than 2 players configured. Player switching might not work as expected.");
     }
-
 
     setupBoardSpots(); 
     updatePlayerTurnDisplay();
@@ -318,9 +310,7 @@ function updatePlayerTurnDisplay() {
 }
 
 function switchPlayer() {
-    // Find current player's index
     const currentPlayerIndex = playersList.indexOf(currentPlayer);
-    // Move to the next player, wrap around
     const nextPlayerIndex = (currentPlayerIndex + 1) % playersList.length;
     currentPlayer = playersList[nextPlayerIndex];
     
@@ -354,7 +344,7 @@ async function handleDiceRoll(maxFaces: number) {
     }, intervalTime);
 }
 
-function checkCurrentSpot() {
+async function checkCurrentSpot() {
     const spotElement = document.getElementById(`spot-${tokenPosition}`);
     if (!spotElement) {
         console.error(`Spot element spot-${tokenPosition} not found!`);
@@ -363,8 +353,15 @@ function checkCurrentSpot() {
     }
 
     if (!visitedSpots[tokenPosition]) { 
+        spotElement.classList.add('glowing'); 
+
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+
+        spotElement.classList.remove('glowing'); 
+        
         visitedSpots[tokenPosition] = true; 
         spotElement.classList.add('visited'); 
+        
         const questionForSpot = getNextTriviaQuestion(); 
         if (questionForSpot) {
             showTriviaModal(questionForSpot); 
@@ -505,7 +502,6 @@ function gameOverSequence() {
 }
 
 function resetFullGameState() {
-    // currentPlayer will be re-randomized on next game start
     tokenPosition = 0;
     if (questions.length > 0) { 
         availableQuestions = [...questions];
