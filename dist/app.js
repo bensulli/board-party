@@ -2,12 +2,14 @@
 // src/app.ts
 // --- Constants & Dynamically Set Variables ---
 let numBoardSpots = 0;
-const PLAYERS = ["Maya", "Eli"];
+// REMOVED: const PLAYERS: [Player, Player] = ["Maya", "Eli"];
+let playersList = ["Player 1", "Player 2"]; // Default fallback players
 const INTRO_VIDEO_URL = "intro.mp4";
 const CONGRATS_VIDEO_URL = "intro.mp4";
 const QUESTIONS_FILE_PATH = 'questions.json';
+const CONFIG_FILE_PATH = 'config.json'; // Path to config file
 // --- Game State Variables ---
-let currentPlayer = PLAYERS[0];
+let currentPlayer; // Will be set after loading config
 let tokenPosition = 0;
 let visitedSpots;
 let questions = [];
@@ -34,7 +36,37 @@ const closeTriviaButton = document.getElementById('close-trivia-button');
 const diceAnimationOverlay = document.getElementById('dice-animation-overlay');
 const diceVisual = document.getElementById('dice-visual');
 const loadingIndicator = document.getElementById('loading-indicator');
-// --- Load Trivia Questions from JSON ---
+// --- Load Config and Questions ---
+/**
+ * Fetches player configuration from config.json.
+ * @returns {Promise<boolean>} True if config was loaded successfully, false otherwise.
+ */
+async function loadConfig() {
+    try {
+        const response = await fetch(CONFIG_FILE_PATH);
+        if (!response.ok) {
+            console.error(`Error fetching config: ${response.status} ${response.statusText}. Using default players.`);
+            // playersList remains as default
+            return false;
+        }
+        const configData = await response.json();
+        if (configData && Array.isArray(configData.players) && configData.players.length >= 2) {
+            playersList = configData.players;
+            console.log("Player config loaded successfully:", playersList);
+            return true;
+        }
+        else {
+            console.error("Invalid config.json format or insufficient players. Using default players.");
+            // playersList remains as default
+            return false;
+        }
+    }
+    catch (error) {
+        console.error("Failed to load or parse config.json:", error, ". Using default players.");
+        // playersList remains as default
+        return false;
+    }
+}
 async function loadTriviaQuestions() {
     try {
         const response = await fetch(QUESTIONS_FILE_PATH);
@@ -224,6 +256,13 @@ function playIntroVideo() {
 function initializeGameBoard() {
     videoPlayerContainer.onclick = null;
     showScreen('game');
+    // Randomly select starting player
+    currentPlayer = playersList[Math.floor(Math.random() * playersList.length)];
+    // Ensure there are at least two players for the switching logic to make sense,
+    // though the game is designed for two.
+    if (playersList.length < 2) {
+        console.warn("Less than 2 players configured. Player switching might not work as expected.");
+    }
     setupBoardSpots();
     updatePlayerTurnDisplay();
     enableDiceButtons(true);
@@ -247,11 +286,14 @@ function initializeGameBoard() {
     diceResultDisplay.textContent = '';
 }
 function updatePlayerTurnDisplay() {
-    //playerTurnDisplay.textContent = `${currentPlayer}'s Turn`;
-    playerTurnDisplay.textContent = ``;
+    playerTurnDisplay.textContent = `${currentPlayer}'s Turn`;
 }
 function switchPlayer() {
-    currentPlayer = currentPlayer === PLAYERS[0] ? PLAYERS[1] : PLAYERS[0];
+    // Find current player's index
+    const currentPlayerIndex = playersList.indexOf(currentPlayer);
+    // Move to the next player, wrap around
+    const nextPlayerIndex = (currentPlayerIndex + 1) % playersList.length;
+    currentPlayer = playersList[nextPlayerIndex];
     updatePlayerTurnDisplay();
     enableDiceButtons(true);
 }
@@ -459,7 +501,7 @@ function gameOverSequence() {
     resetFullGameState();
 }
 function resetFullGameState() {
-    currentPlayer = PLAYERS[0];
+    // currentPlayer will be re-randomized on next game start
     tokenPosition = 0;
     if (questions.length > 0) {
         availableQuestions = [...questions];
@@ -514,12 +556,13 @@ function renderBoardState() {
     }
 }
 // --- Event Listeners & Initial Setup ---
-async function initializeGame() {
+async function initializeApp() {
     showScreen('start');
     startButton.disabled = true;
-    startButton.textContent = "Loading Questions...";
+    startButton.textContent = "Loading Game Data...";
+    await loadConfig();
     const questionsLoaded = await loadTriviaQuestions();
-    if (questionsLoaded) {
+    if (questionsLoaded && playersList.length >= 2) {
         startButton.disabled = false;
         startButton.textContent = "Start Game";
     }
@@ -528,8 +571,14 @@ async function initializeGame() {
         startButton.textContent = "Start Game (Defaults)";
         const existingErrorMsg = startScreen.querySelector('p.text-red-500.text-sm.mt-2');
         if (!existingErrorMsg) {
+            let errorText = "";
+            if (!questionsLoaded)
+                errorText += "Could not load custom questions. ";
+            if (playersList.length < 2)
+                errorText += "Player config error. ";
+            errorText += "Using defaults.";
             const errorMsg = document.createElement('p');
-            errorMsg.textContent = "Could not load custom questions. Using defaults.";
+            errorMsg.textContent = errorText.trim();
             errorMsg.className = "text-red-500 text-sm mt-2";
             startScreen.appendChild(errorMsg);
         }
@@ -542,11 +591,11 @@ startButton.addEventListener('click', () => {
     const errorMsg = startScreen.querySelector('p.text-red-500.text-sm.mt-2');
     if (errorMsg)
         errorMsg.remove();
-    if (numBoardSpots === 0 || questions.length === 0) {
-        console.error("CRITICAL: No questions available or numBoardSpots is 0. Cannot start game.");
-        alert("Error: No questions available to start the game. Please check questions.json or default setup.");
+    if (numBoardSpots === 0 || questions.length === 0 || playersList.length < 2) {
+        console.error("CRITICAL: Game data not properly loaded. Cannot start game.");
+        alert("Error: Game data (questions or players) not loaded. Please check setup.");
         startButton.disabled = true;
-        startButton.textContent = "Error: No Questions";
+        startButton.textContent = "Error: Load Failed";
         return;
     }
     playIntroVideo();
@@ -561,7 +610,7 @@ diceButtons.forEach(button => {
 });
 closeTriviaButton.addEventListener('click', closeTrivia);
 window.addEventListener('DOMContentLoaded', () => {
-    initializeGame();
+    initializeApp();
 });
 let resizeTimeout;
 window.addEventListener('resize', () => {
