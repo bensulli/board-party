@@ -2,14 +2,13 @@
 // src/app.ts
 // --- Constants & Dynamically Set Variables ---
 let numBoardSpots = 0;
-// REMOVED: const PLAYERS: [Player, Player] = ["Maya", "Eli"];
 let playersList = ["Player 1", "Player 2"]; // Default fallback players
 const INTRO_VIDEO_URL = "intro.mp4";
 const CONGRATS_VIDEO_URL = "intro.mp4";
 const QUESTIONS_FILE_PATH = 'questions.json';
-const CONFIG_FILE_PATH = 'config.json'; // Path to config file
+const CONFIG_FILE_PATH = 'config.json';
 // --- Game State Variables ---
-let currentPlayer; // Will be set after loading config
+let currentPlayer;
 let tokenPosition = 0;
 let visitedSpots;
 let questions = [];
@@ -46,7 +45,6 @@ async function loadConfig() {
         const response = await fetch(CONFIG_FILE_PATH);
         if (!response.ok) {
             console.error(`Error fetching config: ${response.status} ${response.statusText}. Using default players.`);
-            // playersList remains as default
             return false;
         }
         const configData = await response.json();
@@ -57,13 +55,11 @@ async function loadConfig() {
         }
         else {
             console.error("Invalid config.json format or insufficient players. Using default players.");
-            // playersList remains as default
             return false;
         }
     }
     catch (error) {
         console.error("Failed to load or parse config.json:", error, ". Using default players.");
-        // playersList remains as default
         return false;
     }
 }
@@ -179,7 +175,7 @@ async function animateTokenMove(steps) {
         await new Promise(resolve => setTimeout(resolve, 150));
     }
     playerToken.style.transition = 'all 0.5s ease-in-out';
-    checkCurrentSpot();
+    await checkCurrentSpot();
 }
 function showScreen(screenName) {
     startScreen.classList.add('hidden');
@@ -256,10 +252,7 @@ function playIntroVideo() {
 function initializeGameBoard() {
     videoPlayerContainer.onclick = null;
     showScreen('game');
-    // Randomly select starting player
     currentPlayer = playersList[Math.floor(Math.random() * playersList.length)];
-    // Ensure there are at least two players for the switching logic to make sense,
-    // though the game is designed for two.
     if (playersList.length < 2) {
         console.warn("Less than 2 players configured. Player switching might not work as expected.");
     }
@@ -289,9 +282,7 @@ function updatePlayerTurnDisplay() {
     playerTurnDisplay.textContent = `${currentPlayer}'s Turn`;
 }
 function switchPlayer() {
-    // Find current player's index
     const currentPlayerIndex = playersList.indexOf(currentPlayer);
-    // Move to the next player, wrap around
     const nextPlayerIndex = (currentPlayerIndex + 1) % playersList.length;
     currentPlayer = playersList[nextPlayerIndex];
     updatePlayerTurnDisplay();
@@ -320,7 +311,7 @@ async function handleDiceRoll(maxFaces) {
         }
     }, intervalTime);
 }
-function checkCurrentSpot() {
+async function checkCurrentSpot() {
     const spotElement = document.getElementById(`spot-${tokenPosition}`);
     if (!spotElement) {
         console.error(`Spot element spot-${tokenPosition} not found!`);
@@ -328,6 +319,9 @@ function checkCurrentSpot() {
         return;
     }
     if (!visitedSpots[tokenPosition]) {
+        spotElement.classList.add('glowing');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        spotElement.classList.remove('glowing');
         visitedSpots[tokenPosition] = true;
         spotElement.classList.add('visited');
         const questionForSpot = getNextTriviaQuestion();
@@ -501,7 +495,6 @@ function gameOverSequence() {
     resetFullGameState();
 }
 function resetFullGameState() {
-    // currentPlayer will be re-randomized on next game start
     tokenPosition = 0;
     if (questions.length > 0) {
         availableQuestions = [...questions];
