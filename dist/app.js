@@ -1,22 +1,17 @@
 "use strict";
 // src/app.ts
 // --- Constants & Dynamically Set Variables ---
-// const NUM_SPOTS = 10; // REMOVED: This will now be dynamic
-let numBoardSpots = 0; // Dynamically set based on loaded questions
+let numBoardSpots = 0;
 const PLAYERS = ["Maya", "Eli"];
 const INTRO_VIDEO_URL = "intro.mp4";
-const CONGRATS_VIDEO_URL = "end.mp4";
+const CONGRATS_VIDEO_URL = "intro.mp4";
 const QUESTIONS_FILE_PATH = 'questions.json';
-const GEMINI_API_KEY = "";
-const GEMINI_MODEL_TEXT = "gemini-2.0-flash";
 // --- Game State Variables ---
 let currentPlayer = PLAYERS[0];
 let tokenPosition = 0;
-let visitedSpots; // MODIFIED: Initialized after numBoardSpots is set
+let visitedSpots;
 let questions = [];
 let availableQuestions = [];
-let currentTriviaQuestionForGemini = null;
-let currentBonusQuestion = null;
 // --- DOM Elements ---
 const startScreen = document.getElementById('start-screen');
 const videoPlayerContainer = document.getElementById('video-player-container');
@@ -38,73 +33,7 @@ const triviaAnswerArea = document.getElementById('trivia-answer-area');
 const closeTriviaButton = document.getElementById('close-trivia-button');
 const diceAnimationOverlay = document.getElementById('dice-animation-overlay');
 const diceVisual = document.getElementById('dice-visual');
-const hintButton = document.getElementById('hint-button');
-const explainAnswerButton = document.getElementById('explain-answer-button');
-const geminiOutputArea = document.getElementById('gemini-output-area');
-const bonusQuestionButton = document.getElementById('bonus-question-button');
-const bonusQuestionDisplayArea = document.getElementById('bonus-question-display-area');
-const bonusQuestionTextElement = document.getElementById('bonus-question-text'); // Renamed for clarity
-const bonusAnswerTextElement = document.getElementById('bonus-answer-text'); // Renamed for clarity
-const showBonusAnswerButton = document.getElementById('show-bonus-answer-button');
 const loadingIndicator = document.getElementById('loading-indicator');
-// --- Helper Functions ---
-function showLoading(show) {
-    if (show) {
-        loadingIndicator.classList.remove('hidden');
-        loadingIndicator.style.display = 'flex'; // Ensure flex is applied
-    }
-    else {
-        loadingIndicator.classList.add('hidden');
-        loadingIndicator.style.display = 'none';
-    }
-}
-async function callGeminiAPI(prompt, buttonToDisable) {
-    if (!GEMINI_API_KEY) { // Check if the API key is available from Canvas
-        console.warn("Gemini API Key not available. Feature disabled.");
-        return "Gemini API is not configured for this environment.";
-    }
-    if (buttonToDisable)
-        buttonToDisable.disabled = true;
-    showLoading(true);
-    try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v2/models/${GEMINI_MODEL_TEXT}:generateContent?key=${GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }],
-                generation_config: {
-                    temperature: 0.7,
-                    top_k: 40,
-                    max_output_tokens: 150
-                }
-            }),
-        });
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Gemini API Error:', response.status, errorData);
-            return `Error from AI: ${errorData.error?.message || 'Failed to get a response.'}`;
-        }
-        const data = await response.json();
-        if (data.candidates && data.candidates.length > 0 && data.candidates[0].content && data.candidates[0].content.parts.length > 0) {
-            return data.candidates[0].content.parts[0].text;
-        }
-        else {
-            console.warn('No content found in Gemini response:', data);
-            return 'The AI gave an empty response. Try again?';
-        }
-    }
-    catch (error) {
-        console.error('Error calling Gemini API:', error);
-        return 'Sorry, I could not connect to the AI right now.';
-    }
-    finally {
-        if (buttonToDisable)
-            buttonToDisable.disabled = false;
-        showLoading(false);
-    }
-}
 // --- Load Trivia Questions from JSON ---
 async function loadTriviaQuestions() {
     try {
@@ -121,14 +50,14 @@ async function loadTriviaQuestions() {
             return false;
         }
         questions = jsonData;
-        numBoardSpots = questions.length; // MODIFIED: Set dynamic number of spots
-        if (numBoardSpots < 3) { // Ensure a minimum number of spots for playability
+        numBoardSpots = questions.length;
+        if (numBoardSpots < 3) {
             console.warn(`Loaded ${numBoardSpots} questions. Too few for a good game. Using defaults.`);
-            setupDefaultQuestions(); // This will set numBoardSpots based on defaults
-            return false; // Indicate that we used defaults due to insufficient questions
+            setupDefaultQuestions();
+            return false;
         }
         availableQuestions = [...questions];
-        visitedSpots = new Array(numBoardSpots).fill(false); // MODIFIED: Initialize visitedSpots
+        visitedSpots = new Array(numBoardSpots).fill(false);
         console.log(`Trivia questions loaded: ${numBoardSpots} spots will be on the board.`);
         return true;
     }
@@ -146,18 +75,18 @@ function setupDefaultQuestions() {
         { id: 103, question: { text: "Default Q: Wheels on a bicycle?" }, answer: { text: "Two" } },
         { id: 104, question: { text: "Default Q: Sound a dog makes?" }, answer: { text: "Woof" } }
     ];
-    numBoardSpots = questions.length; // MODIFIED: Set based on default questions
+    numBoardSpots = questions.length;
     availableQuestions = [...questions];
-    visitedSpots = new Array(numBoardSpots).fill(false); // MODIFIED: Initialize visitedSpots
+    visitedSpots = new Array(numBoardSpots).fill(false);
 }
 // --- Game Logic Functions ---
 function setupBoardSpots() {
     boardCircle.innerHTML = '';
-    if (numBoardSpots === 0) { // Safeguard if numBoardSpots wasn't set
+    if (numBoardSpots === 0) {
         console.error("Cannot setup board: numBoardSpots is 0. Forcing default setup.");
-        setupDefaultQuestions(); // Try to recover
+        setupDefaultQuestions();
         if (numBoardSpots === 0)
-            return; // Still 0, critical error
+            return;
     }
     const radius = boardCircle.offsetWidth / 2 - 30;
     const centerX = boardCircle.offsetWidth / 2;
@@ -170,8 +99,8 @@ function setupBoardSpots() {
     else if (containerWidth > 350) {
         spotSize = 50;
     }
-    for (let i = 0; i < numBoardSpots; i++) { // MODIFIED: Use numBoardSpots
-        const angle = (i / numBoardSpots) * 2 * Math.PI - (Math.PI / 2); // MODIFIED: Use numBoardSpots
+    for (let i = 0; i < numBoardSpots; i++) {
+        const angle = (i / numBoardSpots) * 2 * Math.PI - (Math.PI / 2);
         const x = centerX + radius * Math.cos(angle) - (spotSize / 2);
         const y = centerY + radius * Math.sin(angle) - (spotSize / 2);
         const spot = document.createElement('div');
@@ -209,7 +138,7 @@ function updateTokenPosition(isInitial = false) {
 async function animateTokenMove(steps) {
     enableDiceButtons(false);
     for (let i = 0; i < steps; i++) {
-        tokenPosition = (tokenPosition + 1) % numBoardSpots; // MODIFIED: Use numBoardSpots
+        tokenPosition = (tokenPosition + 1) % numBoardSpots;
         updateTokenPosition();
         playerToken.style.transition = 'transform 0.15s ease-out';
         playerToken.style.transform = `translateY(-${playerToken.offsetHeight * 0.3}px) scale(1.1)`;
@@ -299,7 +228,6 @@ function initializeGameBoard() {
     updatePlayerTurnDisplay();
     enableDiceButtons(true);
     tokenPosition = 0;
-    // Ensure visitedSpots is correctly sized, especially if re-initializing
     if (!visitedSpots || visitedSpots.length !== numBoardSpots) {
         visitedSpots = new Array(numBoardSpots).fill(false);
     }
@@ -317,8 +245,6 @@ function initializeGameBoard() {
     renderBoardState();
     updateTokenPosition(true);
     diceResultDisplay.textContent = '';
-    bonusQuestionButton.classList.remove('hidden'); // Show bonus question button
-    bonusQuestionDisplayArea.classList.add('hidden'); // Hide bonus display area initially
 }
 function updatePlayerTurnDisplay() {
     playerTurnDisplay.textContent = `${currentPlayer}'s Turn`;
@@ -327,11 +253,9 @@ function switchPlayer() {
     currentPlayer = currentPlayer === PLAYERS[0] ? PLAYERS[1] : PLAYERS[0];
     updatePlayerTurnDisplay();
     enableDiceButtons(true);
-    bonusQuestionButton.classList.remove('hidden'); // Re-show bonus question button for next turn
 }
 async function handleDiceRoll(maxFaces) {
     enableDiceButtons(false);
-    bonusQuestionButton.classList.add('hidden'); // Hide bonus question button during roll
     diceResultDisplay.textContent = "Rolling...";
     showScreen('diceAnimation');
     let roll = 0;
@@ -363,9 +287,9 @@ function checkCurrentSpot() {
     if (!visitedSpots[tokenPosition]) {
         visitedSpots[tokenPosition] = true;
         spotElement.classList.add('visited');
-        currentTriviaQuestionForGemini = getNextTriviaQuestion(); // Get a question for this new spot
-        if (currentTriviaQuestionForGemini) {
-            showTriviaModal(currentTriviaQuestionForGemini);
+        const questionForSpot = getNextTriviaQuestion();
+        if (questionForSpot) {
+            showTriviaModal(questionForSpot);
         }
         else {
             console.warn("Landed on unvisited spot, but no more unique questions available.");
@@ -388,9 +312,6 @@ function checkGameEndOrSwitchPlayer() {
 function getNextTriviaQuestion() {
     if (availableQuestions.length === 0) {
         console.warn("No more unique trivia questions available in the current pool!");
-        // If all questions from JSON are used, and we need one for a new spot,
-        // we might want to indicate this or use a generic fallback.
-        // For now, return null, and showTriviaModal will handle if question is null.
         return null;
     }
     const randomIndex = Math.floor(Math.random() * availableQuestions.length);
@@ -398,24 +319,17 @@ function getNextTriviaQuestion() {
     return question;
 }
 function showTriviaModal(questionData) {
-    currentTriviaQuestionForGemini = questionData; // Store for Gemini features
     triviaQuestionArea.innerHTML = '';
     triviaAnswerArea.innerHTML = '';
     triviaAnswerArea.classList.add('hidden');
-    geminiOutputArea.classList.add('hidden');
-    geminiOutputArea.innerHTML = '';
     showAnswerButton.classList.remove('hidden');
     showAnswerButton.disabled = false;
-    hintButton.classList.remove('hidden');
-    hintButton.disabled = false;
-    explainAnswerButton.classList.add('hidden'); // Hide explain button initially
     if (questionData.question.text) {
         const p = document.createElement('p');
         p.textContent = questionData.question.text;
         p.className = 'text-lg mb-2';
         triviaQuestionArea.appendChild(p);
     }
-    // ... (rest of media handling for question)
     const createMediaPlaceholder = (url, type) => {
         const p = document.createElement('p');
         p.textContent = `[${type} Placeholder: ${url.split('/').pop()}]`;
@@ -462,7 +376,6 @@ function showTriviaModal(questionData) {
             p.className = 'text-md';
             triviaAnswerArea.appendChild(p);
         }
-        // ... (rest of media handling for answer)
         if (questionData.answer.imageUrl) {
             const img = document.createElement('img');
             img.src = questionData.answer.imageUrl;
@@ -497,18 +410,12 @@ function showTriviaModal(questionData) {
         triviaAnswerArea.classList.remove('hidden');
         showAnswerButton.classList.add('hidden');
         showAnswerButton.disabled = true;
-        hintButton.classList.add('hidden'); // Hide hint button after answer is shown
-        explainAnswerButton.classList.remove('hidden'); // Show explain button
-        explainAnswerButton.disabled = false;
     };
     showScreen('trivia');
 }
 function closeTrivia() {
     const mediaElements = triviaModal.querySelectorAll('video, audio');
     mediaElements.forEach(media => media.pause());
-    currentTriviaQuestionForGemini = null; // Clear context
-    geminiOutputArea.classList.add('hidden');
-    geminiOutputArea.innerHTML = '';
     showScreen('game');
     checkGameEndOrSwitchPlayer();
 }
@@ -553,24 +460,18 @@ function gameOverSequence() {
 function resetFullGameState() {
     currentPlayer = PLAYERS[0];
     tokenPosition = 0;
-    // visitedSpots will be re-initialized based on numBoardSpots when game starts
-    // numBoardSpots itself is determined by loading questions
-    if (questions.length > 0) { // Should always be true if game ran
+    if (questions.length > 0) {
         availableQuestions = [...questions];
-        if (visitedSpots && numBoardSpots > 0) { // Check if numBoardSpots has a valid value
+        if (visitedSpots && numBoardSpots > 0) {
             visitedSpots = new Array(numBoardSpots).fill(false);
         }
         else {
-            // This scenario means numBoardSpots wasn't set, likely initial question load issue.
-            // initializeGame will handle this on next "Start Game" click.
             console.warn("Resetting game, but numBoardSpots seems invalid. Will be set on next game start.");
         }
     }
     else {
         console.warn("Resetting game state, but master 'questions' array is empty. Questions will be re-attempted on next game start.");
     }
-    bonusQuestionButton.classList.add('hidden'); // Hide bonus question button on reset
-    bonusQuestionDisplayArea.classList.add('hidden');
 }
 function enableDiceButtons(enable) {
     diceButtons.forEach(button => {
@@ -598,7 +499,7 @@ function enableDiceButtons(enable) {
 }
 function renderBoardState() {
     if (numBoardSpots === 0)
-        return; // Don't try to render if no spots defined
+        return;
     for (let i = 0; i < numBoardSpots; i++) {
         const spotEl = document.getElementById(`spot-${i}`);
         if (spotEl) {
@@ -610,65 +511,6 @@ function renderBoardState() {
             }
         }
     }
-}
-// --- Gemini API Feature Functions ---
-async function handleGetHint() {
-    if (!currentTriviaQuestionForGemini)
-        return;
-    geminiOutputArea.innerHTML = '✨ Thinking of a hint...';
-    geminiOutputArea.classList.remove('hidden');
-    hintButton.disabled = true;
-    const questionText = currentTriviaQuestionForGemini.question.text || "this image/audio/video";
-    const answerText = currentTriviaQuestionForGemini.answer.text || "the provided answer";
-    const prompt = `For the trivia question "${questionText}" where the answer is "${answerText}", provide a short, easy-to-understand hint for kids. The hint should not give away the answer directly. Make it fun and encouraging.`;
-    const hint = await callGeminiAPI(prompt, hintButton);
-    geminiOutputArea.innerHTML = hint ? `✨ **Hint:** ${hint}` : '✨ Oops, couldn\'t get a hint right now!';
-}
-async function handleExplainAnswer() {
-    if (!currentTriviaQuestionForGemini)
-        return;
-    geminiOutputArea.innerHTML = '✨ Explaining the answer...';
-    geminiOutputArea.classList.remove('hidden');
-    explainAnswerButton.disabled = true;
-    const questionText = currentTriviaQuestionForGemini.question.text || "the question shown";
-    const answerText = currentTriviaQuestionForGemini.answer.text || "the answer provided";
-    const prompt = `The trivia question was: "${questionText}". The answer is: "${answerText}". Briefly explain why this answer is correct, in simple terms for a child (around 6-10 years old). Keep it short and engaging.`;
-    const explanation = await callGeminiAPI(prompt, explainAnswerButton);
-    geminiOutputArea.innerHTML = explanation ? `✨ **Explanation:** ${explanation}` : '✨ Oops, couldn\'t get an explanation!';
-}
-async function handleGenerateBonusQuestion() {
-    bonusQuestionButton.disabled = true;
-    bonusQuestionDisplayArea.classList.remove('hidden');
-    bonusQuestionTextElement.textContent = '✨ Generating a super fun bonus question...';
-    bonusAnswerTextElement.classList.add('hidden');
-    showBonusAnswerButton.classList.add('hidden');
-    showBonusAnswerButton.disabled = true;
-    const prompt = `Generate a fun and simple general knowledge trivia question suitable for kids (ages 6-10). The question should have a clear, short answer. Format the output as:
-Question: [Your Question Here]
-Answer: [Your Answer Here]`;
-    const result = await callGeminiAPI(prompt, bonusQuestionButton);
-    if (result && result.includes("Question:") && result.includes("Answer:")) {
-        const questionMatch = result.match(/Question: (.*)/);
-        const answerMatch = result.match(/Answer: (.*)/);
-        if (questionMatch && questionMatch[1] && answerMatch && answerMatch[1]) {
-            currentBonusQuestion = { question: questionMatch[1].trim(), answer: answerMatch[1].trim() };
-            bonusQuestionTextElement.textContent = `✨ Bonus Question: ${currentBonusQuestion.question}`;
-            bonusAnswerTextElement.textContent = `Answer: ${currentBonusQuestion.answer}`;
-            showBonusAnswerButton.classList.remove('hidden');
-            showBonusAnswerButton.disabled = false;
-        }
-        else {
-            bonusQuestionTextElement.textContent = 'Could not parse the bonus question. Try again?';
-            currentBonusQuestion = null;
-        }
-    }
-    else {
-        bonusQuestionTextElement.textContent = result || 'Failed to generate bonus question. Try again?';
-        currentBonusQuestion = null;
-    }
-    // Re-enable the main bonus question button if the host wants to try generating another one *instead* of answering this one
-    // Or, keep it disabled until this bonus question flow is complete. For now, let's re-enable.
-    bonusQuestionButton.disabled = false;
 }
 // --- Event Listeners & Initial Setup ---
 async function initializeGame() {
@@ -695,11 +537,11 @@ async function initializeGame() {
 startButton.addEventListener('click', () => {
     const startScreenH1 = startScreen.querySelector('h1');
     if (startScreenH1)
-        startScreenH1.textContent = "Maya & Eli!";
+        startScreenH1.textContent = "Maya & Eli's Adventure!";
     const errorMsg = startScreen.querySelector('p.text-red-500.text-sm.mt-2');
     if (errorMsg)
         errorMsg.remove();
-    if (numBoardSpots === 0 || questions.length === 0) { // numBoardSpots should be set if questions are loaded
+    if (numBoardSpots === 0 || questions.length === 0) {
         console.error("CRITICAL: No questions available or numBoardSpots is 0. Cannot start game.");
         alert("Error: No questions available to start the game. Please check questions.json or default setup.");
         startButton.disabled = true;
@@ -717,13 +559,6 @@ diceButtons.forEach(button => {
     });
 });
 closeTriviaButton.addEventListener('click', closeTrivia);
-hintButton.addEventListener('click', handleGetHint);
-explainAnswerButton.addEventListener('click', handleExplainAnswer);
-bonusQuestionButton.addEventListener('click', handleGenerateBonusQuestion);
-showBonusAnswerButton.addEventListener('click', () => {
-    bonusAnswerTextElement.classList.remove('hidden');
-    showBonusAnswerButton.disabled = true; // Can only show it once per bonus question
-});
 window.addEventListener('DOMContentLoaded', () => {
     initializeGame();
 });

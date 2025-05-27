@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maya & Eli!</title>
+    <title>Maya & Eli's Adventure Game Show!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
           extend: {
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
-              orbitron: ['Orbitron', 'sans-serif'], // Game show style font
+              orbitron: ['Orbitron', 'sans-serif'], 
             },
             colors: {
               'game-blue': '#0A2463',
@@ -27,7 +27,8 @@
               'pulse-light': 'pulseLight 2s infinite ease-in-out',
               'spotlight': 'spotlightShine 5s infinite linear',
               'modalEnter': 'modalEnter 0.5s ease-out forwards',
-              'diceSpin': 'diceSpin 1.5s ease-out forwards', // For a more thematic dice roll
+              'diceSpin': 'diceSpin 1.5s ease-out forwards', 
+              'fadeIn': 'fadeIn 0.5s ease-out forwards',
             },
             keyframes: {
               pulseLight: {
@@ -42,10 +43,14 @@
                 'from': { opacity: '0', transform: 'scale(0.8) translateY(50px)' },
                 'to': { opacity: '1', transform: 'scale(1) translateY(0px)' },
               },
-              diceSpin: { // Example for a more visual dice if we add one
+              diceSpin: { 
                 '0%': { transform: 'rotateY(0deg) rotateX(0deg) scale(1)' },
                 '50%': { transform: 'rotateY(180deg) rotateX(180deg) scale(1.2)' },
                 '100%': { transform: 'rotateY(360deg) rotateX(360deg) scale(1)' },
+              },
+              fadeIn: {
+                'from': { opacity: '0' },
+                'to': { opacity: '1' },
               }
             }
           }
@@ -53,12 +58,12 @@
       }
     </script>
 </head>
-<body class="min-h-screen flex flex-col justify-center items-center font-sans text-game-light p-4 overflow-hidden">
+<body class="bg-game-blue min-h-screen flex flex-col justify-center items-center font-sans text-game-light p-4 overflow-hidden">
 
     <div id="start-screen" class="text-center p-8 md:p-12 bg-gradient-to-br from-game-purple via-game-pink to-game-yellow rounded-2xl shadow-2xl border-4 border-game-yellow relative overflow-hidden">
         <div class="scanline-overlay"></div>
         <img src="https://drop.skyraker.ca/s/pk4n2s2v.png" alt="Game Show Logo" id="game-logo-start" class="mx-auto mb-6 md:mb-8 w-48 h-auto sm:w-64 transition-transform hover:scale-105">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-orbitron font-bold mb-8 text-white" style="text-shadow: 2px 2px 4px #000000, 0 0 10px #FFD700;">Maya & Eli!</h1>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-orbitron font-bold mb-8 text-white" style="text-shadow: 2px 2px 4px #000000, 0 0 10px #FFD700;">Maya & Eli's GAME SHOW!</h1>
         <button id="start-button" class="px-8 py-4 bg-game-teal hover:bg-opacity-80 text-game-blue text-2xl font-bold rounded-lg shadow-lg transition-all hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-game-yellow focus:ring-opacity-50">
             START THE SHOW!
         </button>
@@ -72,7 +77,7 @@
     </div>
 
     <div id="game-area" class="hidden w-full max-w-5xl mx-auto p-6 bg-game-blue/90 backdrop-blur-sm rounded-xl shadow-2xl border-2 border-game-teal flex flex-col items-center relative">
-        <img src="https://drop.skyraker.ca/s/pk4n2s2v.png" alt="Game Show Logo Small" id="game-logo-ingame" class="absolute top-4 left-4 w-64 h-auto opacity-80">
+        <img src="https://drop.skyraker.ca/s/pk4n2s2v.png" alt="Game Show Logo Small" id="game-logo-ingame" class="absolute top-4 left-4 w-24 h-auto opacity-80">
         <div id="player-turn-display" class="text-4xl sm:text-5xl font-orbitron font-bold mb-6 text-game-yellow" style="text-shadow: 1px 1px 2px #000;"></div>
 
         <div id="dice-controls" class="mb-8 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
@@ -80,9 +85,8 @@
             <button data-dice-type="6" class="dice-button">Roll 1d6</button>
             <button data-dice-type="10" class="dice-button">Roll 1d10</button>
         </div>
-        <div id="dice-result-display" class="text-3xl font-bold mb-8 h-10 text-game-light"></div>
-
-
+        <div id="dice-result-display" class="text-3xl font-bold mb-8 h-10 text-game-light"></div> 
+        
         <div id="board-container" class="relative w-[320px] h-[320px] sm:w-[450px] sm:h-[450px] md:w-[550px] md:h-[550px] mb-8">
             <div id="board-circle" class="w-full h-full rounded-full flex justify-center items-center">
                 </div>
@@ -95,10 +99,11 @@
     <div id="trivia-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-40 p-4">
         <div class="bg-gradient-to-br from-game-purple to-game-blue p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto text-center border-4 border-game-yellow animate-modalEnter">
             <h2 class="text-3xl sm:text-4xl font-orbitron font-bold mb-6 text-game-yellow" style="text-shadow: 1px 1px 2px #000;">TRIVIA CHALLENGE!</h2>
-            <div id="trivia-question-area" class="mb-6 min-h-[100px] text-game-light text-lg">
+            <div id="trivia-question-area" class="mb-4 min-h-[100px] text-game-light text-lg">
                 </div>
-            <button id="show-answer-button" class="trivia-button bg-game-teal text-game-blue mb-4">Show Answer</button>
-            <div id="trivia-answer-area" class="hidden mb-6 min-h-[50px] p-4 bg-game-blue/50 rounded-md text-game-light text-md">
+            <button id="show-answer-button" class="trivia-button bg-game-teal text-game-blue mb-3">Show Answer</button>
+            
+            <div id="trivia-answer-area" class="hidden mb-4 min-h-[50px] p-4 bg-game-blue/50 rounded-md text-game-light text-md">
                 </div>
             <button id="close-trivia-button" class="trivia-button bg-gray-500 text-white">Continue</button>
         </div>
@@ -108,6 +113,11 @@
         <div id="dice-visual" class="w-40 h-40 sm:w-48 sm:h-48 bg-gradient-to-br from-game-yellow to-game-pink border-4 border-white rounded-2xl flex justify-center items-center text-7xl sm:text-8xl font-bold shadow-2xl text-game-blue">
             ?
         </div>
+    </div>
+    
+    <div id="loading-indicator" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex flex-col justify-center items-center z-[70]">
+        <div class="w-16 h-16 border-4 border-game-teal border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-game-yellow font-orbitron mt-4 text-xl">Thinking...</p>
     </div>
 
     <script type="module" src="dist/app.js"></script>
