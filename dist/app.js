@@ -247,7 +247,8 @@ function initializeGameBoard() {
     diceResultDisplay.textContent = '';
 }
 function updatePlayerTurnDisplay() {
-    playerTurnDisplay.textContent = `${currentPlayer}'s Turn`;
+    //playerTurnDisplay.textContent = `${currentPlayer}'s Turn`;
+    playerTurnDisplay.textContent = ``;
 }
 function switchPlayer() {
     currentPlayer = currentPlayer === PLAYERS[0] ? PLAYERS[1] : PLAYERS[0];

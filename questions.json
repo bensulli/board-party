@@ -2,120 +2,134 @@
   {
     "id": 1,
     "question": {
-      "text": "What is the capital of Canada?"
+      "text": "What is the name of the yellow, rectangular character who lives in a pineapple under the sea?"
     },
     "answer": {
-      "text": "Ottawa"
+      "text": "SpongeBob SquarePants"
     }
   },
   {
     "id": 2,
     "question": {
-      "text": "Which animal is known as the 'King of the Jungle'?",
-      "imageUrl": "https://placehold.co/300x200/FFD700/000000?text=Lion+Hint"
+      "text": "Look at this image. What type of fruit is it?",
+      "imageUrl": "https://placehold.co/400x300/FFDDCC/000000?text=Mystery+Fruit"
     },
     "answer": {
-      "text": "Lion"
+      "text": "It's a placeholder image, but let's say it's an Apple!"
     }
   },
   {
     "id": 3,
     "question": {
-      "text": "Listen to this sound. What bird makes it?",
-      "audioUrl": "PLACEHOLDER_BIRD_SOUND.mp3"
+      "text": "Listen to this sound. What animal makes this noise?",
+      "audioUrl": "PLACEHOLDER_ANIMAL_SOUND.mp3"
     },
     "answer": {
-      "text": "A placeholder bird!"
+      "text": "A Cow (Moo!)"
     }
   },
   {
     "id": 4,
     "question": {
-      "text": "How many colors are in a rainbow?"
+      "text": "Watch this short video. What color is the car?",
+      "videoUrl": "PLACEHOLDER_CAR_VIDEO.mp4"
+    },
+    "answer": {
+      "text": "Red"
+    }
+  },
+  {
+    "id": 5,
+    "question": {
+      "text": "What is the opposite of 'happy'?"
+    },
+    "answer": {
+      "text": "Sad"
+    }
+  },
+  {
+    "id": 6,
+    "question": {
+      "text": "This is a picture of a famous landmark. What is its name?",
+      "imageUrl": "https://placehold.co/400x300/CCEEFF/000000?text=Famous+Landmark"
+    },
+    "answer": {
+      "text": "The Eiffel Tower (assuming the placeholder showed it!)"
+    }
+  },
+  {
+    "id": 7,
+    "question": {
+      "text": "How many days are there in a week?"
     },
     "answer": {
       "text": "Seven"
     }
   },
   {
-    "id": 5,
-    "question": {
-      "text": "What do you call a baby dog?"
-    },
-    "answer": {
-      "text": "A puppy"
-    }
-  },
-  {
-    "id": 6,
-    "question": {
-      "text": "Which planet is closest to the Sun?"
-    },
-    "answer": {
-      "text": "Mercury"
-    }
-  },
-  {
-    "id": 7,
-    "question": {
-      "text": "What is the main ingredient in guacamole?"
-    },
-    "answer": {
-      "text": "Avocado"
-    }
-  },
-  {
     "id": 8,
     "question": {
-      "text": "How many sides does a triangle have?"
+      "text": "What object is shown in this image?",
+      "imageUrl": "https://placehold.co/300x200/E0E0E0/333333?text=Object+Image"
     },
     "answer": {
-      "text": "Three"
+      "imageUrl": "https://placehold.co/300x200/A0D4A0/000000?text=Answer:+A+Ball"
     }
   },
   {
     "id": 9,
     "question": {
-      "text": "What is the name of Mickey Mouse's dog?"
+      "text": "What sound is typically associated with a clock?"
     },
     "answer": {
-      "text": "Pluto"
+      "audioUrl": "PLACEHOLDER_TICKTOCK_SOUND.mp3"
     }
   },
   {
     "id": 10,
     "question": {
-      "text": "What type of fish is Nemo?"
+      "text": "What popular children's song features a bus and its parts?"
     },
     "answer": {
-      "text": "A clownfish"
+      "videoUrl": "PLACEHOLDER_WHEELS_ON_BUS.mp4"
     }
   },
   {
     "id": 11,
     "question": {
-      "text": "What is the name of Mickey Mouse's dog?"
+      "text": "What do bees make that is sweet and sticky?"
     },
     "answer": {
-      "text": "Pluto"
+      "text": "Honey"
     }
   },
   {
     "id": 12,
     "question": {
-      "text": "What is the name of Mickey Mouse's dog?"
+      "text": "Which of these is a primary color: Green, Orange, or Blue?"
     },
     "answer": {
-      "text": "Pluto"
+      "text": "Blue"
     }
   },
   {
     "id": 13,
     "question": {
-      "text": "What is the name of Mickey Mouse's dog?"
+      "text": "Listen to this musical instrument. What is it?",
+      "audioUrl": "PLACEHOLDER_INSTRUMENT_SOUND.mp3"
     },
     "answer": {
-      "text": "Pluto"
+      "text": "A Piano"
+    }
+  },
+  {
+    "id": 14,
+    "question": {
+      "text": "This video shows a common form of transportation. What is it?",
+      "videoUrl": "PLACEHOLDER_TRANSPORT_VIDEO.mp4"
+    },
+    "answer": {
+      "text": "A Bicycle"
     }
   }
 ]
