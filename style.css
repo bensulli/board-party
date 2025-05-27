@@ -112,9 +112,10 @@ body {
     font-size: 14px;
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy transition */
     cursor: default; /* Spots are not directly interactive */
+    z-index: 5; /* Ensure spots are above board circle animation but below token */
 }
 
-.board-spot:hover { /* Subtle hover for visual feedback if needed, though not interactive */
+.board-spot:hover { 
     transform: scale(1.1);
 }
 
@@ -123,8 +124,30 @@ body {
     border-color: #A0AEC0;
     color: #CBD5E0;
     box-shadow: 0 0 5px 1px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.3);
-    transform: scale(0.9); /* Slightly shrink visited spots */
+    transform: scale(0.9); 
 }
+
+/* NEW: Glowing effect for the spot just landed on */
+.board-spot.glowing {
+    animation: spotGlow 1s ease-in-out;
+    z-index: 6; /* Ensure glowing spot is temporarily on top of other spots if overlapping */
+}
+
+@keyframes spotGlow {
+    0% { 
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3), 0 0 20px 5px rgba(255, 0, 127, 0.4), 0 0 35px 12px #FFD700, 0 0 15px 5px #00F5D4 inset; 
+        transform: scale(1.1); 
+    }
+    50% { 
+        box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.7), 0 0 40px 10px rgba(255, 0, 127, 0.7), 0 0 70px 25px #FFD700, 0 0 25px 10px #00F5D4 inset; 
+        transform: scale(1.25); 
+    }
+    100% { 
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3), 0 0 20px 5px rgba(255, 0, 127, 0.4), 0 0 35px 12px #FFD700, 0 0 15px 5px #00F5D4 inset; 
+        transform: scale(1.1); 
+    }
+}
+
 
 /* Player Token */
 #player-token {
@@ -133,7 +156,7 @@ body {
     box-shadow: 0 0 15px 3px #FFD700, 0 0 5px white inset; /* Yellow glow */
     text-shadow: 1px 1px 1px #000;
     font-family: 'Orbitron', sans-serif;
-    z-index: 10;
+    z-index: 10; /* Token should be on top of spots */
 }
 
 
@@ -141,19 +164,17 @@ body {
 #trivia-modal.hidden {
     display: none;
 }
-/* The animation is now defined in tailwind.config.js as 'modalEnter' */
-/* #trivia-modal { animation: modalEnter 0.5s ease-out forwards; } */
 
-#trivia-modal > div { /* Targeting the inner modal content box */
-    box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.6), /* game-yellow glow */
-                0 0 60px 20px rgba(0, 245, 212, 0.4); /* game-teal glow */
+#trivia-modal > div { 
+    box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.6), 
+                0 0 60px 20px rgba(0, 245, 212, 0.4); 
 }
 
 .trivia-button {
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem; /* 8px */
+    border-radius: 0.5rem; 
     border: none;
     box-shadow: 0 3px 5px rgba(0,0,0,0.2);
     transition: all 0.2s ease-out;
@@ -173,22 +194,19 @@ body {
 #dice-animation-overlay.hidden {
     display: none;
 }
-/* The animation is now defined in tailwind.config.js as 'fadeInOverlay' if needed, but not explicitly used here */
 
-#dice-visual { /* The actual dice cube/display */
-    /* If we implement a 3D dice, this will need more complex styling/animation */
-    /* For now, the text content changes, and it pulses via Tailwind animation 'pulseDice' */
-    animation: pulseLight 1.5s infinite ease-in-out; /* Re-using pulseLight for dice */
+#dice-visual { 
+    animation: pulseLight 1.5s infinite ease-in-out; 
 }
 
 
 /* Responsive adjustments for spots */
-@media (min-width: 640px) { /* sm breakpoint */
+@media (min-width: 640px) { 
     .board-spot {
         font-size: 16px;
     }
 }
-@media (min-width: 768px) { /* md breakpoint */
+@media (min-width: 768px) { 
     .board-spot {
         font-size: 18px;
     }
@@ -200,9 +218,9 @@ body {
 #trivia-question-area audio, #trivia-answer-area audio {
     max-width: 100%;
     height: auto;
-    border-radius: 0.75rem; /* 12px */
+    border-radius: 0.75rem; 
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
-    border: 2px solid #FFD700; /* game-yellow */
+    border: 2px solid #FFD700; 
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
