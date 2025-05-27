@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maya & Eli's Adventure Game</title>
+    <title>Maya & Eli!</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script>
       tailwind.config = {
@@ -13,62 +13,99 @@
           extend: {
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
+              orbitron: ['Orbitron', 'sans-serif'], // Game show style font
             },
+            colors: {
+              'game-blue': '#0A2463',
+              'game-pink': '#FF007F',
+              'game-yellow': '#FFD700',
+              'game-purple': '#7B2CBF',
+              'game-teal': '#00F5D4',
+              'game-light': '#F0F4F8',
+            },
+            animation: {
+              'pulse-light': 'pulseLight 2s infinite ease-in-out',
+              'spotlight': 'spotlightShine 5s infinite linear',
+              'modalEnter': 'modalEnter 0.5s ease-out forwards',
+              'diceSpin': 'diceSpin 1.5s ease-out forwards', // For a more thematic dice roll
+            },
+            keyframes: {
+              pulseLight: {
+                '0%, 100%': { boxShadow: '0 0 15px 5px rgba(255, 255, 0, 0.7), 0 0 30px 10px rgba(255, 0, 127, 0.5)' },
+                '50%': { boxShadow: '0 0 25px 10px rgba(255, 255, 0, 0.9), 0 0 50px 20px rgba(255, 0, 127, 0.7)' },
+              },
+              spotlightShine: {
+                '0%': { backgroundPosition: '-200% 0' },
+                '100%': { backgroundPosition: '200% 0' },
+              },
+              modalEnter: {
+                'from': { opacity: '0', transform: 'scale(0.8) translateY(50px)' },
+                'to': { opacity: '1', transform: 'scale(1) translateY(0px)' },
+              },
+              diceSpin: { // Example for a more visual dice if we add one
+                '0%': { transform: 'rotateY(0deg) rotateX(0deg) scale(1)' },
+                '50%': { transform: 'rotateY(180deg) rotateX(180deg) scale(1.2)' },
+                '100%': { transform: 'rotateY(360deg) rotateX(360deg) scale(1)' },
+              }
+            }
           }
         }
       }
     </script>
 </head>
-<body class="bg-gradient-to-br from-sky-400 to-blue-600 min-h-screen flex flex-col justify-center items-center font-sans text-gray-800 p-4 overflow-hidden">
+<body class="min-h-screen flex flex-col justify-center items-center font-sans text-game-light p-4 overflow-hidden">
 
-    <div id="start-screen" class="text-center p-8 bg-white/80 backdrop-blur-md rounded-xl shadow-2xl">
-        <h1 class="text-5xl font-bold mb-8 text-blue-700">Maya & Eli's Adventure!</h1>
-        <button id="start-button" class="px-8 py-4 bg-green-500 hover:bg-green-600 text-white text-2xl font-semibold rounded-lg shadow-lg transition-transform hover:scale-105">
-            Start Game
+    <div id="start-screen" class="text-center p-8 md:p-12 bg-gradient-to-br from-game-purple via-game-pink to-game-yellow rounded-2xl shadow-2xl border-4 border-game-yellow relative overflow-hidden">
+        <div class="scanline-overlay"></div>
+        <img src="https://drop.skyraker.ca/s/pk4n2s2v.png" alt="Game Show Logo" id="game-logo-start" class="mx-auto mb-6 md:mb-8 w-48 h-auto sm:w-64 transition-transform hover:scale-105">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-orbitron font-bold mb-8 text-white" style="text-shadow: 2px 2px 4px #000000, 0 0 10px #FFD700;">Maya & Eli!</h1>
+        <button id="start-button" class="px-8 py-4 bg-game-teal hover:bg-opacity-80 text-game-blue text-2xl font-bold rounded-lg shadow-lg transition-all hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-game-yellow focus:ring-opacity-50">
+            START THE SHOW!
         </button>
     </div>
 
-    <div id="video-player-container" class="hidden fixed inset-0 bg-black/90 flex justify-center items-center z-50 p-4">
+    <div id="video-player-container" class="hidden fixed inset-0 bg-black/95 flex justify-center items-center z-50 p-4">
         <video id="video-player" class="max-w-full max-h-full rounded-lg shadow-2xl" autoplay>
             Your browser does not support the video tag.
         </video>
         <p id="video-placeholder-text" class="text-white text-2xl hidden">Video Player: Source URL will be set here.</p>
     </div>
 
-    <div id="game-area" class="hidden w-full max-w-4xl mx-auto p-6 bg-white/80 backdrop-blur-md rounded-xl shadow-2xl flex flex-col items-center">
-        <div id="player-turn-display" class="text-4xl font-bold mb-6 text-purple-700"></div>
+    <div id="game-area" class="hidden w-full max-w-5xl mx-auto p-6 bg-game-blue/90 backdrop-blur-sm rounded-xl shadow-2xl border-2 border-game-teal flex flex-col items-center relative">
+        <img src="https://drop.skyraker.ca/s/pk4n2s2v.png" alt="Game Show Logo Small" id="game-logo-ingame" class="absolute top-4 left-4 w-64 h-auto opacity-80">
+        <div id="player-turn-display" class="text-4xl sm:text-5xl font-orbitron font-bold mb-6 text-game-yellow" style="text-shadow: 1px 1px 2px #000;"></div>
 
-        <div id="dice-controls" class="mb-8 flex space-x-4">
-            <button data-dice-type="3" class="dice-button bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-transform hover:scale-105">Roll 1d3</button>
-            <button data-dice-type="6" class="dice-button bg-orange-400 hover:bg-orange-500 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-transform hover:scale-105">Roll 1d6</button>
-            <button data-dice-type="10" class="dice-button bg-red-400 hover:bg-red-500 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-transform hover:scale-105">Roll 1d10</button>
+        <div id="dice-controls" class="mb-8 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+            <button data-dice-type="3" class="dice-button">Roll 1d3</button>
+            <button data-dice-type="6" class="dice-button">Roll 1d6</button>
+            <button data-dice-type="10" class="dice-button">Roll 1d10</button>
         </div>
-        <div id="dice-result-display" class="text-3xl font-bold mb-8 h-10"></div>
+        <div id="dice-result-display" class="text-3xl font-bold mb-8 h-10 text-game-light"></div>
 
 
-        <div id="board-container" class="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] mb-8">
-            <div id="board-circle" class="w-full h-full border-[10px] border-blue-500 rounded-full flex justify-center items-center">
+        <div id="board-container" class="relative w-[320px] h-[320px] sm:w-[450px] sm:h-[450px] md:w-[550px] md:h-[550px] mb-8">
+            <div id="board-circle" class="w-full h-full rounded-full flex justify-center items-center">
                 </div>
-            <div id="player-token" class="absolute w-10 h-10 sm:w-12 sm:h-12 bg-pink-500 border-2 border-white rounded-full shadow-lg flex justify-center items-center text-white font-bold text-sm transition-all duration-500 ease-in-out">
-                
+            <div id="player-token" class="absolute w-10 h-10 sm:w-12 sm:h-12 bg-game-pink border-2 border-white rounded-full shadow-lg flex justify-center items-center text-white font-bold text-sm transition-all duration-500 ease-in-out">
+                ME
             </div>
         </div>
     </div>
 
-    <div id="trivia-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-40 p-4">
-        <div class="bg-white p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto text-center">
-            <h2 class="text-3xl font-bold mb-6 text-indigo-700">Trivia Time!</h2>
-            <div id="trivia-question-area" class="mb-6 min-h-[100px]">
+    <div id="trivia-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-40 p-4">
+        <div class="bg-gradient-to-br from-game-purple to-game-blue p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto text-center border-4 border-game-yellow animate-modalEnter">
+            <h2 class="text-3xl sm:text-4xl font-orbitron font-bold mb-6 text-game-yellow" style="text-shadow: 1px 1px 2px #000;">TRIVIA CHALLENGE!</h2>
+            <div id="trivia-question-area" class="mb-6 min-h-[100px] text-game-light text-lg">
                 </div>
-            <button id="show-answer-button" class="w-full mb-4 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg shadow-md transition-transform hover:scale-105">Show Answer</button>
-            <div id="trivia-answer-area" class="hidden mb-6 min-h-[50px] p-4 bg-gray-100 rounded-md">
+            <button id="show-answer-button" class="trivia-button bg-game-teal text-game-blue mb-4">Show Answer</button>
+            <div id="trivia-answer-area" class="hidden mb-6 min-h-[50px] p-4 bg-game-blue/50 rounded-md text-game-light text-md">
                 </div>
-            <button id="close-trivia-button" class="w-full px-6 py-3 bg-gray-400 hover:bg-gray-500 text-white font-semibold rounded-lg shadow-md transition-transform hover:scale-105">Continue</button>
+            <button id="close-trivia-button" class="trivia-button bg-gray-500 text-white">Continue</button>
         </div>
     </div>
 
-    <div id="dice-animation-overlay" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50">
-        <div id="dice-visual" class="w-40 h-40 sm:w-48 sm:h-48 bg-white border-4 border-gray-700 rounded-2xl flex justify-center items-center text-7xl sm:text-8xl font-bold shadow-2xl">
+    <div id="dice-animation-overlay" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-[60]">
+        <div id="dice-visual" class="w-40 h-40 sm:w-48 sm:h-48 bg-gradient-to-br from-game-yellow to-game-pink border-4 border-white rounded-2xl flex justify-center items-center text-7xl sm:text-8xl font-bold shadow-2xl text-game-blue">
             ?
         </div>
     </div>

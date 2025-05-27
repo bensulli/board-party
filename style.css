@@ -1,110 +1,208 @@
-/* style.css */
+/* style.css - Game Show Theme */
 body {
     font-family: 'Inter', sans-serif;
+    background-color: hsl(130, 100%, 53%); /* game-blue */
+    color: #F0F4F8; /* game-light */
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 }
 
-/* Ensure board container allows absolute positioning of spots and token */
+/* Scanline overlay for a retro TV effect on start screen */
+.scanline-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.1) 50%),
+                linear-gradient(90deg, rgba(255,0,0,0.03), rgba(0,255,0,0.02), rgba(0,0,255,0.03));
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.6;
+}
+#start-screen h1, #player-turn-display, #trivia-modal h2 {
+    font-family: 'Orbitron', sans-serif; /* Game show style font */
+}
+
+#game-logo-start {
+    filter: drop-shadow(0 0 10px #FFD700); /* game-yellow glow */
+}
+
+#start-button {
+    position: relative; /* For pseudo-elements if needed for more effects */
+    z-index: 2;
+}
+
+/* Game Area Styling */
+#game-area {
+    box-shadow: 0 0 20px 5px rgba(0, 245, 212, 0.5), /* game-teal glow */
+                inset 0 0 15px rgba(0,0,0,0.3);
+}
+
+/* Dice Controls and Buttons */
+.dice-button {
+    background-image: linear-gradient(to bottom right, #FFD700, #FF007F); /* game-yellow to game-pink */
+    color: #0A2463; /* game-blue */
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem; /* 12px */
+    border: 2px solid #F0F4F8; /* game-light */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2), inset 0 -2px 4px rgba(0,0,0,0.3);
+    transition: all 0.2s ease-out;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.dice-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.3), inset 0 -1px 3px rgba(0,0,0,0.2);
+    filter: brightness(1.1);
+}
+.dice-button:active {
+    transform: translateY(1px) scale(1);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+}
+.dice-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+
+/* Board Styling */
 #board-container {
     position: relative;
 }
 
 #board-circle {
-    position: relative; /* For child absolute positioning */
+    position: relative;
+    border: 10px solid transparent; /* Make border transparent */
+    /* Create a "chasing lights" effect for the border */
+    background:
+        linear-gradient(#0A2463, #0A2463) padding-box, /* This is the "fill" */
+        repeating-linear-gradient(-45deg, 
+            #FFD700 0%, #FFD700 5%, 
+            transparent 5%, transparent 10%,
+            #FF007F 10%, #FF007F 15%,
+            transparent 15%, transparent 20%,
+            #00F5D4 20%, #00F5D4 25%,
+            transparent 25%, transparent 30%
+        ) border-box; /* This is the border */
+    animation: chaseLights 10s linear infinite;
+    background-size: 200% 200%; /* Needs to be larger for animation to work */
+}
+
+@keyframes chaseLights {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 200%; } /* Adjust for speed and smoothness */
 }
 
 .board-spot {
     position: absolute;
-    width: 40px; /* Default size, can be adjusted */
-    height: 40px;
     border-radius: 50%;
-    background-color: lightblue; /* Default color for unvisited spots */
-    border: 3px solid white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    background-image: linear-gradient(to top, #7B2CBF, #FF007F); /* game-purple to game-pink */
+    border: 4px solid #F0F4F8; /* game-light */
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3), 0 0 20px 5px rgba(255, 0, 127, 0.4); /* Light and pink glow */
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Orbitron', sans-serif;
     font-weight: bold;
-    color: #333;
+    color: #F0F4F8;
     font-size: 14px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy transition */
+    cursor: default; /* Spots are not directly interactive */
 }
 
-/* Visited spot style */
+.board-spot:hover { /* Subtle hover for visual feedback if needed, though not interactive */
+    transform: scale(1.1);
+}
+
 .board-spot.visited {
-    background-color: #a0aec0; /* Grey */
-    color: #4a5568;
+    background-image: linear-gradient(to top, #4A5568, #718096); /* Greyed out */
+    border-color: #A0AEC0;
+    color: #CBD5E0;
+    box-shadow: 0 0 5px 1px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.3);
+    transform: scale(0.9); /* Slightly shrink visited spots */
 }
 
-/* Player token initial position will be set by JS */
+/* Player Token */
 #player-token {
-    /* transform: translate(-50%, -50%); set by JS */
-    /* Transition for hopping effect will be managed by JS if complex, or simple CSS transition */
+    background-image: radial-gradient(circle, #FFD700, #FF8C00); /* Gold/Orange */
+    border: 3px solid white;
+    box-shadow: 0 0 15px 3px #FFD700, 0 0 5px white inset; /* Yellow glow */
+    text-shadow: 1px 1px 1px #000;
+    font-family: 'Orbitron', sans-serif;
     z-index: 10;
 }
 
 
-/* Trivia Modal Animation */
+/* Trivia Modal Animation & Styling */
 #trivia-modal.hidden {
     display: none;
 }
-#trivia-modal { /* Base styles for when it's not hidden */
-    animation: fadeInModal 0.7s ease-out forwards; /* MODIFIED: Slower animation (was 0.3s) */
-}
-@keyframes fadeInModal {
-    from { opacity: 0; transform: scale(0.95) translateY(20px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
+/* The animation is now defined in tailwind.config.js as 'modalEnter' */
+/* #trivia-modal { animation: modalEnter 0.5s ease-out forwards; } */
+
+#trivia-modal > div { /* Targeting the inner modal content box */
+    box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.6), /* game-yellow glow */
+                0 0 60px 20px rgba(0, 245, 212, 0.4); /* game-teal glow */
 }
 
-/* Dice Animation Overlay */
+.trivia-button {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem; /* 8px */
+    border: none;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    transition: all 0.2s ease-out;
+    text-transform: uppercase;
+}
+.trivia-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 5px 8px rgba(0,0,0,0.3);
+}
+.trivia-button:active {
+    transform: translateY(1px);
+}
+
+
+/* Dice Animation Overlay & Visual */
 #dice-animation-overlay.hidden {
     display: none;
 }
-#dice-animation-overlay {
-    animation: fadeInOverlay 0.2s ease-out forwards;
-}
-@keyframes fadeInOverlay {
-    from { opacity: 0; }
-    to { opacity: 1; }
+/* The animation is now defined in tailwind.config.js as 'fadeInOverlay' if needed, but not explicitly used here */
+
+#dice-visual { /* The actual dice cube/display */
+    /* If we implement a 3D dice, this will need more complex styling/animation */
+    /* For now, the text content changes, and it pulses via Tailwind animation 'pulseDice' */
+    animation: pulseLight 1.5s infinite ease-in-out; /* Re-using pulseLight for dice */
 }
 
-#dice-visual {
-    animation: pulseDice 1s infinite ease-in-out; /* Simple pulse while thinking */
-}
 
-@keyframes pulseDice {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-/* Responsive adjustments for spots if needed */
+/* Responsive adjustments for spots */
 @media (min-width: 640px) { /* sm breakpoint */
     .board-spot {
-        width: 50px;
-        height: 50px;
         font-size: 16px;
     }
 }
 @media (min-width: 768px) { /* md breakpoint */
     .board-spot {
-        width: 60px;
-        height: 60px;
         font-size: 18px;
     }
 }
 
 /* Styling for embedded media in trivia */
-#trivia-question-area img, #trivia-answer-area img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0.5rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+#trivia-question-area img, #trivia-answer-area img,
 #trivia-question-area video, #trivia-answer-area video,
 #trivia-question-area audio, #trivia-answer-area audio {
     max-width: 100%;
-    border-radius: 0.5rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    height: auto;
+    border-radius: 0.75rem; /* 12px */
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    border: 2px solid #FFD700; /* game-yellow */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
