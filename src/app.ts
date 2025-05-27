@@ -400,6 +400,8 @@ function showTriviaModal(questionData: TriviaQuestionFormat) {
     
     showAnswerButton.classList.remove('hidden'); 
     showAnswerButton.disabled = false;
+    closeTriviaButton.disabled = true;
+    closeTriviaButton.hidden = true;
 
     if (questionData.question.text) {
         const p = document.createElement('p');
@@ -449,7 +451,9 @@ function showTriviaModal(questionData: TriviaQuestionFormat) {
 
         triviaAnswerArea.classList.remove('hidden'); 
         showAnswerButton.classList.add('hidden');    
-        showAnswerButton.disabled = true;        
+        showAnswerButton.disabled = true;     
+        closeTriviaButton.disabled = false;   
+        closeTriviaButton.hidden = false;
     };
 
     showScreen('trivia'); 

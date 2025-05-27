@@ -361,6 +361,8 @@ function showTriviaModal(questionData) {
     triviaAnswerArea.classList.add('hidden');
     showAnswerButton.classList.remove('hidden');
     showAnswerButton.disabled = false;
+    closeTriviaButton.disabled = true;
+    closeTriviaButton.hidden = true;
     if (questionData.question.text) {
         const p = document.createElement('p');
         p.textContent = questionData.question.text;
@@ -447,6 +449,8 @@ function showTriviaModal(questionData) {
         triviaAnswerArea.classList.remove('hidden');
         showAnswerButton.classList.add('hidden');
         showAnswerButton.disabled = true;
+        closeTriviaButton.disabled = false;
+        closeTriviaButton.hidden = false;
     };
     showScreen('trivia');
 }

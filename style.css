@@ -35,22 +35,51 @@ body {
 
 /* Game Area Styling */
 #game-area {
-    box-shadow: 0 0 20px 5px rgba(0, 245, 212, 0.5), /* game-teal glow */
-                inset 0 0 15px rgba(0,0,0,0.3);
+    position: relative; /* Needed for absolute positioning of pseudo-element */
+    box-shadow: 0 0 20px 5px rgba(0, 245, 212, 0.3), /* Softer static teal glow */
+                inset 0 0 15px rgba(0,0,0,0.2);
 }
+
+#game-area::after {
+    content: '';
+    position: absolute;
+    top: -10px; 
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: inherit; 
+    box-shadow: 0 0 35px 12px rgba(0, 245, 212, 0.7), 
+                0 0 25px 8px rgba(255, 215, 0, 0.3); 
+    opacity: 0; 
+    animation: breathingPseudoGlow 4s infinite ease-in-out;
+    pointer-events: none; 
+    z-index: -1; 
+}
+
+@keyframes breathingPseudoGlow {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0.98); 
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.02); 
+    }
+}
+
 
 /* Dice Controls and Buttons */
 .dice-button {
-    background-image: linear-gradient(to bottom right, #FFD700, #FF007F); /* game-yellow to game-pink */
-    color: #0A2463; /* game-blue */
+    background-image: linear-gradient(to bottom right, #FFD700, #FF007F); 
+    color: #0A2463; 
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     padding: 0.75rem 1.5rem;
-    border-radius: 0.75rem; /* 12px */
-    border: 2px solid #F0F4F8; /* game-light */
+    border-radius: 0.75rem; 
+    border: 2px solid #F0F4F8; 
     box-shadow: 0 4px 6px rgba(0,0,0,0.2), inset 0 -2px 4px rgba(0,0,0,0.3);
     transition: all 0.2s ease-out;
-    /* text-transform: uppercase; */
+    text-transform: uppercase;
     letter-spacing: 1px;
 }
 .dice-button:hover {
@@ -76,10 +105,9 @@ body {
 
 #board-circle {
     position: relative;
-    border: 10px solid transparent; /* Make border transparent */
-    /* Create a "chasing lights" effect for the border */
+    border: 10px solid transparent; 
     background:
-        linear-gradient(#0A2463, #0A2463) padding-box, /* This is the "fill" */
+        linear-gradient(#0A2463, #0A2463) padding-box, 
         repeating-linear-gradient(-45deg, 
             #FFD700 0%, #FFD700 5%, 
             transparent 5%, transparent 10%,
@@ -87,22 +115,22 @@ body {
             transparent 15%, transparent 20%,
             #00F5D4 20%, #00F5D4 25%,
             transparent 25%, transparent 30%
-        ) border-box; /* This is the border */
+        ) border-box; 
     animation: chaseLights 10s linear infinite;
-    background-size: 200% 200%; /* Needs to be larger for animation to work */
+    background-size: 200% 200%; 
 }
 
 @keyframes chaseLights {
     0% { background-position: 0% 0%; }
-    100% { background-position: 200% 200%; } /* Adjust for speed and smoothness */
+    100% { background-position: 200% 200%; } 
 }
 
 .board-spot {
     position: absolute;
     border-radius: 50%;
-    background-image: linear-gradient(to top, #7B2CBF, #FF007F); /* game-purple to game-pink */
-    border: 4px solid #F0F4F8; /* game-light */
-    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3), 0 0 20px 5px rgba(255, 0, 127, 0.4); /* Light and pink glow */
+    background-image: linear-gradient(to top, #7B2CBF, #FF007F); 
+    border: 4px solid #F0F4F8; 
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3), 0 0 20px 5px rgba(255, 0, 127, 0.4); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,9 +138,10 @@ body {
     font-weight: bold;
     color: #F0F4F8;
     font-size: 14px;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy transition */
-    cursor: default; /* Spots are not directly interactive */
-    z-index: 5; /* Ensure spots are above board circle animation but below token */
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+    cursor: default; 
+    z-index: 5; 
+    transform: scale(1); 
 }
 
 .board-spot:hover { 
@@ -120,54 +149,57 @@ body {
 }
 
 .board-spot.visited {
-    background-image: linear-gradient(to top, #4A5568, #718096); /* Greyed out */
+    background-image: linear-gradient(to top, #4A5568, #718096); 
     border-color: #A0AEC0;
     color: #CBD5E0;
     box-shadow: 0 0 5px 1px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.3);
     transform: scale(0.9); 
 }
 
-/* NEW: Glowing effect for the spot just landed on */
 .board-spot.glowing {
     animation: spotGlow 1s ease-in-out;
-    z-index: 6; /* Ensure glowing spot is temporarily on top of other spots if overlapping */
+    z-index: 6; 
 }
 
 @keyframes spotGlow {
     0% { 
-        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3), 0 0 20px 5px rgba(255, 0, 127, 0.4), 0 0 35px 12px #FFD700, 0 0 15px 5px #00F5D4 inset; 
-        transform: scale(1.1); 
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3), 0 0 20px 5px rgba(255, 0, 127, 0.4); 
+        transform: scale(1); 
     }
     50% { 
         box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.7), 0 0 40px 10px rgba(255, 0, 127, 0.7), 0 0 70px 25px #FFD700, 0 0 25px 10px #00F5D4 inset; 
         transform: scale(1.25); 
     }
     100% { 
-        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3), 0 0 20px 5px rgba(255, 0, 127, 0.4), 0 0 35px 12px #FFD700, 0 0 15px 5px #00F5D4 inset; 
-        transform: scale(1.1); 
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3), 0 0 20px 5px rgba(255, 0, 127, 0.4); 
+        transform: scale(1); 
     }
 }
 
 
 /* Player Token */
 #player-token {
-    background-image: radial-gradient(circle, #FFD700, #FF8C00); /* Gold/Orange */
+    background-image: radial-gradient(circle, #FFD700, #FF8C00); 
     border: 3px solid white;
-    box-shadow: 0 0 15px 3px #FFD700, 0 0 5px white inset; /* Yellow glow */
+    box-shadow: 0 0 15px 3px #FFD700, 0 0 5px white inset; 
     text-shadow: 1px 1px 1px #000;
     font-family: 'Orbitron', sans-serif;
-    z-index: 10; /* Token should be on top of spots */
+    z-index: 10; 
 }
 
 
 /* Trivia Modal Animation & Styling */
+#trivia-modal { /* MODIFIED: Added styles for the modal overlay */
+    background-color: rgba(10, 36, 99, 0.3);
+}
+
 #trivia-modal.hidden {
     display: none;
 }
 
-#trivia-modal > div { 
-    box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.6), 
-                0 0 60px 20px rgba(0, 245, 212, 0.4); 
+#trivia-modal > div { /* Targeting the inner modal content box */
+    box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.6), /* game-yellow glow */
+                0 0 60px 20px rgba(0, 245, 212, 0.4); /* game-teal glow */
 }
 
 .trivia-button {
