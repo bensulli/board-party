@@ -38,42 +38,38 @@
   {
     "id": 2,
     "question": {
-      "text": ""
+      "imageUrl": "assets/eiffel_japan.png"
     },
     "answer": {
-      "text": "",
-      "videoUrl": ""
+      "text": "Waaaaaaaitaminnit! The Eiffel Tower isn't in JAPAN!"
     }
   },
   {
     "id": 4,
     "question": {
-      "text": "",
-      "imageUrl": ""
+      "text": "You are running a race and you pass the person in second place. You're in the lead!!!!!!!?"
     },
     "answer": {
-      "text": "",
-      "videoUrl": ""
+      "text": "Noooooo, now YOU'RE in second place!"
     }
   },
   {
     "id": 6,
     "question": {
-      "text": ""
+      "text": "An elephant in Africa and a giraffe in Europe are in the same zoo."
     },
     "answer": {
       "text": "",
-      "videoUrl": ""
+      "imageUrl": ""
     }
   },
   {
     "id": 8,
     "question": {
-      "text": "",
-      "imageUrl": ""
+      "imageUrl": "assets/greece_mahal.png"
     },
     "answer": {
-      "imageUrl": ""
+      "text": "Waaaaaaaitaminnit! The Taj Mahal isn't in GREECE!"
     }
   },
   {
