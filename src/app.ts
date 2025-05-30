@@ -114,6 +114,10 @@ async function loadTriviaQuestions(): Promise<boolean> {
         availableQuestions = [...questions]; 
         visitedSpots = new Array(numBoardSpots).fill(false); 
         console.log(`Trivia questions loaded: ${numBoardSpots} spots will be on the board.`);
+
+        // MODIFIED: Expose questions to the console for testing
+        (window as any).allQuestions = questions;
+
         return true;
     } catch (error) {
         console.error("Failed to load or parse questions.json:", error);
@@ -133,6 +137,8 @@ function setupDefaultQuestions() {
     numBoardSpots = questions.length; 
     availableQuestions = [...questions]; 
     visitedSpots = new Array(numBoardSpots).fill(false); 
+    // MODIFIED: Expose default questions too if they are used
+    (window as any).allQuestions = questions;
 }
 
 
@@ -458,6 +464,10 @@ function showTriviaModal(questionData: TriviaQuestionFormat) {
 
     showScreen('trivia'); 
 }
+
+// MODIFIED: Expose showTriviaModal to the console for testing
+(window as any).testQuestion = showTriviaModal;
+
 
 function closeTrivia() {
     const mediaElements = triviaModal.querySelectorAll('video, audio');
