@@ -243,20 +243,26 @@ body {
 
 
 #trivia-answer-area {
-    /* Styles for answer area remain as is unless further changes are requested */
+    max-width: 80rem; /* Equivalent to Tailwind's max-w-7xl (1280px) */
+    margin-left: auto; /* Center the answer area if it's narrower than its parent */
+    margin-right: auto;
 }
 
 #trivia-answer-area img, 
 #trivia-answer-area video,
 #trivia-answer-area audio {
-    max-width: 100%;
+    max-width: 100%; /* Media within the answer area can take its full width */
     height: auto;
-    max-height: 240px; 
+    max-height: 400px; /* You can adjust this if answers can have large media */
+    display: block; /* For centering if narrower */
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 0.75rem; 
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
     border: 2px solid #FFD700; 
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    object-fit: contain;
 }
 
 
