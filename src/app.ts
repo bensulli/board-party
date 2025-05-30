@@ -400,19 +400,18 @@ function getNextTriviaQuestion(): TriviaQuestionFormat | null {
 }
 
 function showTriviaModal(questionData: TriviaQuestionFormat) {
-    triviaQuestionArea.innerHTML = ''; 
-    triviaAnswerArea.innerHTML = '';   
-    triviaAnswerArea.classList.add('hidden'); 
+    triviaQuestionArea.innerHTML = ''; // Clear area for question or answer
+    // triviaAnswerArea.innerHTML = ''; // No longer used for main answer display
+    // triviaAnswerArea.classList.add('hidden'); 
     
     showAnswerButton.classList.remove('hidden'); 
     showAnswerButton.disabled = false;
-    closeTriviaButton.disabled = true;
-    closeTriviaButton.hidden = true;
 
+    // Populate #trivia-question-area with the QUESTION content
     if (questionData.question.text) {
         const p = document.createElement('p');
         p.textContent = questionData.question.text;
-        p.className = 'text-lg mb-2';
+        p.className = 'text-lg mb-2'; // Ensure styling is appropriate
         triviaQuestionArea.appendChild(p);
     }
     const createMediaPlaceholder = (url: string, type: string) => {
@@ -424,7 +423,8 @@ function showTriviaModal(questionData: TriviaQuestionFormat) {
 
     if (questionData.question.imageUrl) {
         const img = document.createElement('img'); img.src = questionData.question.imageUrl; img.alt = "Question Image";
-        img.className = "mx-auto my-2 rounded-md max-h-48 object-contain"; triviaQuestionArea.appendChild(img);
+        img.className = "mx-auto my-2 rounded-md"; // CSS will handle sizing
+        triviaQuestionArea.appendChild(img);
     }
     if (questionData.question.audioUrl) {
         if (questionData.question.audioUrl.toUpperCase().startsWith("PLACEHOLDER")) { triviaQuestionArea.appendChild(createMediaPlaceholder(questionData.question.audioUrl, "Audio")); }
@@ -437,29 +437,31 @@ function showTriviaModal(questionData: TriviaQuestionFormat) {
 
 
     showAnswerButton.onclick = () => {
-        triviaAnswerArea.innerHTML = ''; 
+        triviaQuestionArea.innerHTML = ''; // MODIFIED: Clear the question area
+        
+        // MODIFIED: Populate #trivia-question-area with the ANSWER content
         if (questionData.answer.text) {
             const p = document.createElement('p'); p.textContent = questionData.answer.text;
-            p.className = 'text-md'; triviaAnswerArea.appendChild(p);
+            p.className = 'text-lg mb-2'; // Ensure styling is appropriate for answer text
+            triviaQuestionArea.appendChild(p);
         }
         if (questionData.answer.imageUrl) {
             const img = document.createElement('img'); img.src = questionData.answer.imageUrl; img.alt = "Answer Image";
-            img.className = "mx-auto my-1 rounded-md max-h-40 object-contain"; triviaAnswerArea.appendChild(img);
+            img.className = "mx-auto my-2 rounded-md"; // CSS will handle sizing
+            triviaQuestionArea.appendChild(img);
         }
         if (questionData.answer.audioUrl) {
-             if (questionData.answer.audioUrl.toUpperCase().startsWith("PLACEHOLDER")) { triviaAnswerArea.appendChild(createMediaPlaceholder(questionData.answer.audioUrl, "Audio Answer")); }
-            else { const audio = document.createElement('audio'); audio.src = questionData.answer.audioUrl; audio.controls = true; audio.className = "w-full my-1"; triviaAnswerArea.appendChild(audio); }
+             if (questionData.answer.audioUrl.toUpperCase().startsWith("PLACEHOLDER")) { triviaQuestionArea.appendChild(createMediaPlaceholder(questionData.answer.audioUrl, "Audio Answer")); }
+            else { const audio = document.createElement('audio'); audio.src = questionData.answer.audioUrl; audio.controls = true; audio.className = "w-full my-1"; triviaQuestionArea.appendChild(audio); }
         }
         if (questionData.answer.videoUrl) {
-            if (questionData.answer.videoUrl.toUpperCase().startsWith("PLACEHOLDER")) { triviaAnswerArea.appendChild(createMediaPlaceholder(questionData.answer.videoUrl, "Video Answer")); }
-            else { const video = document.createElement('video'); video.src = questionData.answer.videoUrl; video.controls = true; video.className = "w-full my-1 rounded-md"; triviaAnswerArea.appendChild(video); }
+            if (questionData.answer.videoUrl.toUpperCase().startsWith("PLACEHOLDER")) { triviaQuestionArea.appendChild(createMediaPlaceholder(questionData.answer.videoUrl, "Video Answer")); }
+            else { const video = document.createElement('video'); video.src = questionData.answer.videoUrl; video.controls = true; video.className = "w-full my-1 rounded-md"; triviaQuestionArea.appendChild(video); }
         }
 
-        triviaAnswerArea.classList.remove('hidden'); 
+        // triviaAnswerArea.classList.remove('hidden'); // No longer needed for main answer
         showAnswerButton.classList.add('hidden');    
-        showAnswerButton.disabled = true;     
-        closeTriviaButton.disabled = false;   
-        closeTriviaButton.hidden = false;
+        showAnswerButton.disabled = true;        
     };
 
     showScreen('trivia'); 
