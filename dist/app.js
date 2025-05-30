@@ -87,6 +87,8 @@ async function loadTriviaQuestions() {
         availableQuestions = [...questions];
         visitedSpots = new Array(numBoardSpots).fill(false);
         console.log(`Trivia questions loaded: ${numBoardSpots} spots will be on the board.`);
+        // MODIFIED: Expose questions to the console for testing
+        window.allQuestions = questions;
         return true;
     }
     catch (error) {
@@ -106,6 +108,8 @@ function setupDefaultQuestions() {
     numBoardSpots = questions.length;
     availableQuestions = [...questions];
     visitedSpots = new Array(numBoardSpots).fill(false);
+    // MODIFIED: Expose default questions too if they are used
+    window.allQuestions = questions;
 }
 // --- Game Logic Functions ---
 function setupBoardSpots() {
@@ -454,6 +458,8 @@ function showTriviaModal(questionData) {
     };
     showScreen('trivia');
 }
+// MODIFIED: Expose showTriviaModal to the console for testing
+window.testQuestion = showTriviaModal;
 function closeTrivia() {
     const mediaElements = triviaModal.querySelectorAll('video, audio');
     mediaElements.forEach(media => media.pause());

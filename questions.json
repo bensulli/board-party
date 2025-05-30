@@ -56,11 +56,11 @@
   {
     "id": 6,
     "question": {
-      "text": "An elephant in Africa and a giraffe in Europe are in the same zoo."
+      "text": "A lion in Africa and a giraffe in Europe and a zebra in France are in the same zoo."
     },
     "answer": {
-      "text": "",
-      "imageUrl": ""
+      "text": "Waaaaaaitamminnit... They can't be in the same zoo, they're on different continents!",
+      "imageUrl": "assets/zoo.png"
     }
   },
   {
@@ -75,41 +75,46 @@
   {
     "id": 9,
     "question": {
-      "text": "",
-      "videoUrl": ""
+      "imageUrl": "assets/ben_newyork.png"
     },
     "answer": {
-      "audioUrl": ""
+      "text": "Waaaaaaaitaminnit! Big Ben isn't in NEW YORK!"
     }
   },
   {
     "id": 10,
     "question": {
-      "text": "",
-      "videoUrl": ""
+      "imageUrl": "assets/me_lgeo.png"
     },
     "answer": {
-      "videoUrl": ""
+      "imageUrl": "assets/me_lego.png"
     }
   },
   {
     "id": 11,
     "question": {
-      "text": "",
-      "videoUrl": ""
+      "text": "A rooster lays an egg on the roof. Which side does it roll down?"
     },
     "answer": {
-      "text": "",
-      "videoUrl": ""
+      "text": "Waaaaaaaitaminnit! Roosters don't LAY EGGS!"
     }
   },
   {
     "id": 12,
     "question": {
-      "text": ""
+      "imageUrl": "assets/lego_catnap.png"
     },
     "answer": {
-      "text": ""
+      "imageUrl": "assets/lego_batman.png"
+    }
+  },
+  {
+    "id": 13,
+    "question": {
+      "text": "Tim's mother has four children: North, East, and South. What is the name of the fourth child?"
+    },
+    "answer": {
+      "text": "It's 'Tim'! It's right there in the question! It's the first word! THE FIRST WORD!!!"
     }
   }
 ]

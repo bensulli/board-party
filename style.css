@@ -197,10 +197,65 @@ body {
     display: none;
 }
 
-#trivia-modal > div { /* Targeting the inner modal content box */
-    box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.6), /* game-yellow glow */
-                0 0 60px 20px rgba(0, 245, 212, 0.4); /* game-teal glow */
+#trivia-modal > div { 
+    box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.6), 
+                0 0 60px 20px rgba(0, 245, 212, 0.4); 
 }
+
+/* MODIFIED: Trivia Question Area Styling */
+#trivia-question-area {
+    margin-bottom: 1.5rem; /* Was mb-4, Tailwind's mb-6 */
+    min-height: 150px; /* Increased from 100px */
+    color: #F0F4F8; /* game-light */
+    /* font-size is now applied directly to child p tags */
+}
+
+#trivia-question-area p { /* Target text paragraphs directly */
+    font-size: 1.5rem; /* Tailwind's text-2xl - Increased from text-lg */
+    line-height: 2rem; /* Tailwind's leading-8 */
+    margin-bottom: 0.75rem; /* Tailwind's mb-3 */
+}
+
+#trivia-question-area img, 
+#trivia-question-area video,
+#trivia-question-area audio {
+    max-width: 100%;
+    height: auto; /* Keep auto for videos/audio */
+    max-height: 320px; /* Increased from 192px (max-h-48 to approx max-h-80) */
+    border-radius: 0.75rem; 
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    border: 2px solid #FFD700; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+/* Ensure video and audio elements also get a decent height if they have default controls */
+#trivia-question-area video {
+    min-height: 200px; /* Suggest a min-height for video elements */
+}
+#trivia-question-area audio {
+    width: 100%; /* Make audio player full width */
+}
+
+
+/* MODIFIED: Trivia Answer Area styling for consistency if needed, though not explicitly requested */
+#trivia-answer-area {
+    /* If you want to make answer area larger too, apply similar changes here */
+    /* For now, keeping it as is based on original request for question area */
+}
+
+#trivia-answer-area img, 
+#trivia-answer-area video,
+#trivia-answer-area audio {
+    max-width: 100%;
+    height: auto;
+    max-height: 240px; /* Slightly smaller than question media, adjust as needed */
+    border-radius: 0.75rem; 
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    border: 2px solid #FFD700; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
 
 .trivia-button {
     font-family: 'Orbitron', sans-serif;
@@ -237,6 +292,10 @@ body {
     .board-spot {
         font-size: 16px;
     }
+    #trivia-question-area p {
+        font-size: 1.875rem; /* text-3xl on larger screens */
+        line-height: 2.25rem;
+    }
 }
 @media (min-width: 768px) { 
     .board-spot {
@@ -244,15 +303,5 @@ body {
     }
 }
 
-/* Styling for embedded media in trivia */
-#trivia-question-area img, #trivia-answer-area img,
-#trivia-question-area video, #trivia-answer-area video,
-#trivia-question-area audio, #trivia-answer-area audio {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0.75rem; 
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
-    border: 2px solid #FFD700; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
+/* Styling for embedded media in trivia - general rules were above, specific tweaks if needed */
+
