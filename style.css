@@ -216,28 +216,29 @@ body {
 }
 
 #trivia-question-area img, 
-#trivia-question-area video,
-#trivia-question-area audio {
-    max-width: 90%; /* MODIFIED: Set max-width to 90% of the container */
-    display: block; /* Ensures margin auto works for centering */
-    margin-left: auto; /* Center the element if it's narrower than 90% */
-    margin-right: auto; /* Center the element */
+#trivia-question-area video { /* Grouped img and video */
+    width: 90%; /* MODIFIED: Force width to 90% of its container */
+    max-width: none; /* MODIFIED: Remove previous max-width to allow width: 90% to take full effect */
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto; 
     height: auto; 
-    max-height: 400px; /* MODIFIED: Increased max-height to allow for larger images */
+    max-height: 60vh; /* MODIFIED: Increased max-height significantly (60% of viewport height) */
     border-radius: 0.75rem; 
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
     border: 2px solid #FFD700; 
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    object-fit: contain; /* Ensures the entire image/video is visible within the bounds, maintaining aspect ratio */
 }
-#trivia-question-area video {
-    min-height: 200px; 
-}
+
 #trivia-question-area audio {
-    width: 90%; /* MODIFIED: Set width to 90% for consistency */
-    display: block; /* For margin auto centering */
+    width: 90%; 
+    display: block; 
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 
 
