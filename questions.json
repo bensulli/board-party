@@ -2,119 +2,82 @@
   {
     "id": 1,
     "question": {
-      "imageUrl": "assets/fox_explode.jpg"
+      "text": "Six is SOOOOO afraid of Seven!"
     },
     "answer": {
-      "imageUrl": "assets/fox_original.jpg"
+      "text": "Because SEVEN ATE NINE!"
     }
   },
   {
     "id": 3,
     "question": {
-      "imageUrl": "assets/mcdonalds_swirl.png"
+      "text": "Math books are COMPLAINING to each other! What are they complaining about?"
     },
     "answer": {
-      "imageUrl": "assets/mcdonalds_original.png"
+      "text": "They have too many PROBLEMS!"
     }
   },
   {
     "id": 5,
     "question": {
-      "imageUrl": "assets/google_shift.png"
+      "text": "Aw, the triangle broke up with the circle! Why did it break circle's heart?"
     },
     "answer": {
-      "imageUrl": "assets/google_original.png"
+      "text": "The circle wasn't edgy enough for triangle..."
     }
   },
   {
     "id": 7,
     "question": {
-      "imageUrl": "assets/starbucks_zoom.png"
+      "imageUrl": "assets/lego_sonic.jpg"
     },
     "answer": {
-      "imageUrl": "assets/starbucks_original.png"
-    }
-  },
-  {
-    "id": 2,
-    "question": {
-      "imageUrl": "assets/eiffel_japan.png"
-    },
-    "answer": {
-      "text": "Waaaaaaaitaminnit! The Eiffel Tower isn't in JAPAN!"
-    }
-  },
-  {
-    "id": 4,
-    "question": {
-      "text": "You are running a race and you pass the person in second place. You're in the lead!!!!!!!?"
-    },
-    "answer": {
-      "text": "Noooooo, now YOU'RE in second place!"
-    }
-  },
-  {
-    "id": 6,
-    "question": {
-      "text": "A lion in Africa and a giraffe in Europe and a zebra in France are in the same zoo."
-    },
-    "answer": {
-      "text": "Waaaaaaitamminnit... They can't be in the same zoo, they're on different continents!",
-      "imageUrl": "assets/zoo.png"
-    }
-  },
-  {
-    "id": 8,
-    "question": {
-      "imageUrl": "assets/greece_mahal.png"
-    },
-    "answer": {
-      "text": "Waaaaaaaitaminnit! The Taj Mahal isn't in GREECE!"
+      "imageUrl": "assets/lego_construction.jpg"
     }
   },
   {
     "id": 9,
     "question": {
-      "imageUrl": "assets/ben_newyork.png"
+      "imageUrl": "assets/ladybug_poke.jpg"
     },
     "answer": {
-      "text": "Waaaaaaaitaminnit! Big Ben isn't in NEW YORK!"
+      "imageUrl": "assets/ladybug_blue.jpg"
     }
   },
   {
-    "id": 10,
+    "id": 8,
     "question": {
-      "imageUrl": "assets/me_lgeo.png"
+      "imageUrl": "assets/queen_james.jpg"
     },
     "answer": {
-      "imageUrl": "assets/me_lego.png"
+      "imageUrl": "assets/queen_normal.jpg"
     }
   },
   {
-    "id": 11,
+    "id": 2,
     "question": {
-      "text": "A rooster lays an egg on the roof. Which side does it roll down?"
+      "imageUrl": "assets/disney_mirror.jpg"
     },
     "answer": {
-      "text": "Waaaaaaaitaminnit! Roosters don't LAY EGGS!"
+      "imageUrl": "assets/disney_straight.jpg"
     }
   },
   {
-    "id": 12,
+    "id": 4,
     "question": {
-      "imageUrl": "assets/lego_catnap.png"
+      "imageUrl": "assets/wendys_new.jpg"
     },
     "answer": {
-      "imageUrl": "assets/lego_batman.png"
+      "imageUrl": "assets/wendys_old.jpg"
     }
   },
   {
-    "id": 13,
+    "id": 6,
     "question": {
-      "text": "Tim's mother has four children: North, East, and South. What is the name of the fourth child?"
+      "imageUrl": "assets/figure_8.jpg"
     },
     "answer": {
-      "text": "It's 'Tim'! It's right there in the question! It's the first word! THE FIRST WORD!!!"
+      "imageUrl": "assets/figure_6.jpg"
     }
   }
 ]

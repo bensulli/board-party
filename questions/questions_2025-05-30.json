@@ -1,0 +1,120 @@
+[
+  {
+    "id": 1,
+    "question": {
+      "imageUrl": "assets/fox_explode.jpg"
+    },
+    "answer": {
+      "imageUrl": "assets/fox_original.jpg"
+    }
+  },
+  {
+    "id": 3,
+    "question": {
+      "imageUrl": "assets/mcdonalds_swirl.png"
+    },
+    "answer": {
+      "imageUrl": "assets/mcdonalds_original.png"
+    }
+  },
+  {
+    "id": 5,
+    "question": {
+      "imageUrl": "assets/google_shift.png"
+    },
+    "answer": {
+      "imageUrl": "assets/google_original.png"
+    }
+  },
+  {
+    "id": 7,
+    "question": {
+      "imageUrl": "assets/starbucks_zoom.png"
+    },
+    "answer": {
+      "imageUrl": "assets/starbucks_original.png"
+    }
+  },
+  {
+    "id": 2,
+    "question": {
+      "imageUrl": "assets/eiffel_japan.png"
+    },
+    "answer": {
+      "text": "Waaaaaaaitaminnit! The Eiffel Tower isn't in JAPAN!"
+    }
+  },
+  {
+    "id": 4,
+    "question": {
+      "text": "You are running a race and you pass the person in second place. You're in the lead!!!!!!!?"
+    },
+    "answer": {
+      "text": "Noooooo, now YOU'RE in second place!"
+    }
+  },
+  {
+    "id": 6,
+    "question": {
+      "text": "A lion in Africa and a giraffe in Europe and a zebra in France are in the same zoo."
+    },
+    "answer": {
+      "text": "Waaaaaaitamminnit... They can't be in the same zoo, they're on different continents!",
+      "imageUrl": "assets/zoo.png"
+    }
+  },
+  {
+    "id": 8,
+    "question": {
+      "imageUrl": "assets/greece_mahal.png"
+    },
+    "answer": {
+      "text": "Waaaaaaaitaminnit! The Taj Mahal isn't in GREECE!"
+    }
+  },
+  {
+    "id": 9,
+    "question": {
+      "imageUrl": "assets/ben_newyork.png"
+    },
+    "answer": {
+      "text": "Waaaaaaaitaminnit! Big Ben isn't in NEW YORK!"
+    }
+  },
+  {
+    "id": 10,
+    "question": {
+      "imageUrl": "assets/me_lgeo.png"
+    },
+    "answer": {
+      "imageUrl": "assets/me_lego.png"
+    }
+  },
+  {
+    "id": 11,
+    "question": {
+      "text": "A rooster lays an egg on the roof. Which side does it roll down?"
+    },
+    "answer": {
+      "text": "Waaaaaaaitaminnit! Roosters don't LAY EGGS!"
+    }
+  },
+  {
+    "id": 12,
+    "question": {
+      "imageUrl": "assets/lego_catnap.png"
+    },
+    "answer": {
+      "imageUrl": "assets/lego_batman.png"
+    }
+  },
+  {
+    "id": 13,
+    "question": {
+      "text": "Tim's mother has four children: North, East, and South. What is the name of the fourth child?"
+    },
+    "answer": {
+      "text": "It's 'Tim'! It's right there in the question! It's the first word! THE FIRST WORD!!!"
+    }
+  }
+]
