@@ -11,92 +11,74 @@
   {
     "id": 3,
     "question": {
-      "text": ""
+      "text": "A circle has just one side."
     },
     "answer": {
-      "text": ""
+      "text": "A circle has two sides, an inside and an outside."
     }
   },
   {
     "id": 5,
     "question": {
-      "text": ""
+      "text": "There are seven apples and you take three of them. You have NINETY-NINE APPLES!"
     },
     "answer": {
-      "text": ""
+      "text": "No, you have three apples. You took three of them. No idea who has the other four."
     }
   },
   {
     "id": 7,
     "question": {
-      "text": ""
+      "text": "If I am a number who has a couple of friends, which number am I?"
     },
     "answer": {
-      "text": ""
+      "text": "Three."
     }
   },
   {
     "id": 9,
     "question": {
-      "imageUrl": ""
+      "text": "Name the favorite dessert of a math teacher."
     },
     "answer": {
-      "text": ""
-    }
-  },
-  {
-    "id": 11,
-    "question": {
-      "text": ""
-    },
-    "answer": {
-      "text": ""
+      "text": "Pi(e), of course."
     }
   },
   {
     "id": 2,
     "question": {
-      "text": ""
+      "imageUrl": "assets/2025-06-09/playtima_co.png"
     },
     "answer": {
       "text": "",
-      "imageUrl": ""
+      "imageUrl": "assets/2025-06-09/playtime_co.png"
     }
   },
   {
     "id": 4,
     "question": {
-      "imageUrl": ""
+      "imageUrl": "assets/2025-06-09/lh_doey.png"
     },
     "answer": {
-      "text": ""
+      "imageUrl": "assets/2025-06-09/lh_house.png"
     }
   },
   {
     "id": 6,
     "question": {
-      "imageUrl": ""
+      "imageUrl": "assets/2025-06-09/lh_baby.png"
     },
     "answer": {
-      "text": ""
+      "imageUrl": "assets/2025-06-09/lh_intro.png"
     }
   },
   {
     "id": 8,
     "question": {
-      "imageUrl": ""
+      "imageUrl": "assets/2025-06-09/lh_mommy.png"
     },
     "answer": {
-      "imageUrl": ""
-    }
-  },
-  {
-    "id": 10,
-    "question": {
-      "text": ""
-    },
-    "answer": {
-      "text": ""
+      "imageUrl": "assets/2025-06-09/lh_wall.png"
     }
   }
 ]

@@ -77,12 +77,16 @@
     </div>
 
     <div id="game-area" class="hidden w-full max-w-5xl mx-auto p-6 backdrop-blur-sm rounded-xl shadow-2xl border-2 border-game-teal flex flex-col items-center relative">
-        <img src="https://drop.skyraker.ca/s/pk4n2s2v.png" alt="Game Show Logo Small" id="game-logo-ingame" class="absolute bottom-4 left-4 w-64 h-auto opacity-100">
+        <img src="https://drop.skyraker.ca/s/shax3f85.png" alt="Game Show Logo Small" id="game-logo-ingame" class="absolute bottom-4 left-4 w-64 h-auto opacity-100">
+        <img src="https://drop.skyraker.ca/s/pk4n2s2v.png" alt="Game Show Logo Small" id="game-logo-ingame" class="absolute bottom-4 right-4 w-64 h-auto opacity-100">
         <div id="player-turn-display" class="text-4xl sm:text-5xl font-orbitron font-bold mb-6 text-game-yellow" style="text-shadow: 1px 1px 2px #000;"></div>
 
         <div id="dice-controls" class="mb-8 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+            <button data-dice-type="2" class="dice-button">Roll 1d2</button>
             <button data-dice-type="3" class="dice-button">Roll 1d3</button>
+            <button data-dice-type="3" class="dice-button">Roll 1d4</button>
             <button data-dice-type="6" class="dice-button">Roll 1d6</button>
+            <button data-dice-type="6" class="dice-button">Roll 1d8</button>
             <button data-dice-type="10" class="dice-button">Roll 1d10</button>
         </div>
         <div id="dice-result-display" class="text-3xl font-bold mb-8 h-10 text-game-light"></div> 
