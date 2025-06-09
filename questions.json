@@ -2,82 +2,101 @@
   {
     "id": 1,
     "question": {
-      "text": "Six is SOOOOO afraid of Seven!"
+      "text": "You have 4 treats, but you can only eat one every 30 minutes. You finish them in... 10 seconds??"
     },
     "answer": {
-      "text": "Because SEVEN ATE NINE!"
+      "text": "You can finish them in 1.5 hrs (90 minutes) because you can have one right away."
     }
   },
   {
     "id": 3,
     "question": {
-      "text": "Math books are COMPLAINING to each other! What are they complaining about?"
+      "text": ""
     },
     "answer": {
-      "text": "They have too many PROBLEMS!"
+      "text": ""
     }
   },
   {
     "id": 5,
     "question": {
-      "text": "Aw, the triangle broke up with the circle! Why did it break circle's heart?"
+      "text": ""
     },
     "answer": {
-      "text": "The circle wasn't edgy enough for triangle..."
+      "text": ""
     }
   },
   {
     "id": 7,
     "question": {
-      "imageUrl": "assets/lego_sonic.jpg"
+      "text": ""
     },
     "answer": {
-      "imageUrl": "assets/lego_construction.jpg"
+      "text": ""
     }
   },
   {
     "id": 9,
     "question": {
-      "imageUrl": "assets/ladybug_poke.jpg"
+      "imageUrl": ""
     },
     "answer": {
-      "imageUrl": "assets/ladybug_blue.jpg"
+      "text": ""
     }
   },
   {
-    "id": 8,
+    "id": 11,
     "question": {
-      "imageUrl": "assets/queen_james.jpg"
+      "text": ""
     },
     "answer": {
-      "imageUrl": "assets/queen_normal.jpg"
+      "text": ""
     }
   },
   {
     "id": 2,
     "question": {
-      "imageUrl": "assets/disney_mirror.jpg"
+      "text": ""
     },
     "answer": {
-      "imageUrl": "assets/disney_straight.jpg"
+      "text": "",
+      "imageUrl": ""
     }
   },
   {
     "id": 4,
     "question": {
-      "imageUrl": "assets/wendys_new.jpg"
+      "imageUrl": ""
     },
     "answer": {
-      "imageUrl": "assets/wendys_old.jpg"
+      "text": ""
     }
   },
   {
     "id": 6,
     "question": {
-      "imageUrl": "assets/figure_8.jpg"
+      "imageUrl": ""
     },
     "answer": {
-      "imageUrl": "assets/figure_6.jpg"
+      "text": ""
+    }
+  },
+  {
+    "id": 8,
+    "question": {
+      "imageUrl": ""
+    },
+    "answer": {
+      "imageUrl": ""
+    }
+  },
+  {
+    "id": 10,
+    "question": {
+      "text": ""
+    },
+    "answer": {
+      "text": ""
     }
   }
 ]

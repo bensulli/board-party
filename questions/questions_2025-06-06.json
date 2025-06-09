@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "question": {
+      "text": "Six is SOOOOO afraid of Seven!"
+    },
+    "answer": {
+      "text": "Because SEVEN ATE NINE!"
+    }
+  },
+  {
+    "id": 3,
+    "question": {
+      "text": "Math books are COMPLAINING to each other! What are they complaining about?"
+    },
+    "answer": {
+      "text": "They have too many PROBLEMS!"
+    }
+  },
+  {
+    "id": 5,
+    "question": {
+      "text": "Aw, the triangle broke up with the circle! Why did it break circle's heart?"
+    },
+    "answer": {
+      "text": "The circle wasn't edgy enough for triangle..."
+    }
+  },
+  {
+    "id": 7,
+    "question": {
+      "imageUrl": "assets/lego_sonic.jpg"
+    },
+    "answer": {
+      "imageUrl": "assets/lego_construction.jpg"
+    }
+  },
+  {
+    "id": 9,
+    "question": {
+      "imageUrl": "assets/ladybug_poke.jpg"
+    },
+    "answer": {
+      "imageUrl": "assets/ladybug_blue.jpg"
+    }
+  },
+  {
+    "id": 8,
+    "question": {
+      "imageUrl": "assets/queen_james.jpg"
+    },
+    "answer": {
+      "imageUrl": "assets/queen_normal.jpg"
+    }
+  },
+  {
+    "id": 2,
+    "question": {
+      "imageUrl": "assets/disney_mirror.jpg"
+    },
+    "answer": {
+      "imageUrl": "assets/disney_straight.jpg"
+    }
+  },
+  {
+    "id": 4,
+    "question": {
+      "imageUrl": "assets/wendys_new.jpg"
+    },
+    "answer": {
+      "imageUrl": "assets/wendys_old.jpg"
+    }
+  },
+  {
+    "id": 6,
+    "question": {
+      "imageUrl": "assets/figure_8.jpg"
+    },
+    "answer": {
+      "imageUrl": "assets/figure_6.jpg"
+    }
+  }
+]
